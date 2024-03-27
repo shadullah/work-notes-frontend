@@ -1,50 +1,58 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // import { useContext } from "react";
 // import useAxiosPublic from "../../../hooks/useAxiosPublic";
 // import { AuthContext } from "../../../providers/AuthProvider";
 import signImg from "../../assets/signUp.gif";
+import { useRef } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Signup = () => {
-  //   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
-    // reset,
+    reset,
+    watch,
     formState: { errors },
   } = useForm();
-  //   const { createUser, updateUserProfile } = useContext(AuthContext);
-  //   const navigate = useNavigate();
+  const password = useRef({});
+  password.current = watch("password", "");
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    // createUser(data.email, data.password).then((result) => {
-    //   const loggedUser = result.user;
-    //   console.log(loggedUser);
-    //   updateUserProfile(data.name)
-    //     .then(() => {
-    //       // create user entry in the database
-    //       const userInfo = {
-    //         name: data.name,
-    //         email: data.email,
-    //         role: data.role,
-    //       };
-    //       axiosPublic.post("/users", userInfo).then((res) => {
-    //         if (res.data.insertedId) {
-    //           console.log("user added to the database");
-    //           reset();
-    //           navigate("/");
-    //         }
-    //       });
-    //     })
-    //     .catch((error) => {
-    //       if (error.code === "auth/email-already-in-use") {
-    //         errors.email = "email already in use";
-    //       } else {
-    //         console.error(error);
-    //       }
-    //     });
-    // });
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/todo/register/",
+        {
+          username: data.username,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          email: data.email,
+          password: data.password,
+          confirm_password: data.confirm_password,
+        }
+      );
+      toast.loading("Wait for server response");
+
+      if (response.status === 201) {
+        // Registration successful
+
+        console.log("Registration successful", response.data);
+        // Redirect or show success message
+      } else {
+        reset();
+        navigate("/login");
+        toast.success(response.data, { duration: 4000 });
+        // Handle any other HTTP status codes as needed
+        console.error("Registration failed", response.data);
+      }
+    } catch (error) {
+      console.error("An error occurred during registration", error);
+      // Handle errors, e.g., show error message to user
+    }
   };
 
   return (
@@ -63,6 +71,9 @@ const Signup = () => {
           <p className="ml-6 md:ml-16 text-gray-100">
             Sign up To Enter a New World
           </p>
+
+          {/* form start here */}
+
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="px-6 md:px-16 py-8 md:py-8"
@@ -74,13 +85,43 @@ const Signup = () => {
                 </label>
                 <input
                   className="appearance-none border-b-2 bg-gray-800 border-gray-500 w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline rounded-lg"
-                  name="name"
-                  placeholder="John Doe"
+                  name="username"
+                  placeholder="John"
                   {...register("username", { required: true })}
                   type="text"
                 />
                 {errors.username && (
-                  <span className="text-red-700">Name is required</span>
+                  <span className="text-red-700">Username is required</span>
+                )}
+              </div>
+              <div className="w-full px-3 mb-6">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
+                  First Name
+                </label>
+                <input
+                  className="appearance-none border-b-2 bg-gray-800 border-gray-500 w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline rounded-lg"
+                  name="first_name"
+                  placeholder="John"
+                  {...register("first_name", { required: true })}
+                  type="text"
+                />
+                {errors.first_name && (
+                  <span className="text-red-700">first_name is required</span>
+                )}
+              </div>
+              <div className="w-full px-3 mb-6">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
+                  Last name
+                </label>
+                <input
+                  className="appearance-none border-b-2 bg-gray-800 border-gray-500 w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline rounded-lg"
+                  name="last_name"
+                  placeholder="Doe"
+                  {...register("last_name", { required: true })}
+                  type="text"
+                />
+                {errors.last_name && (
+                  <span className="text-red-700">last_name is required</span>
                 )}
               </div>
               <div className="w-full px-3 mb-6">
@@ -139,27 +180,17 @@ const Signup = () => {
                 <input
                   className="appearance-none border-b-2 bg-gray-800 border-gray-500 w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline rounded-lg"
                   placeholder=""
-                  {...register("password", {
-                    required: true,
-                    minLength: 6,
-                    maxLength: 20,
-                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
-                  })}
-                  name="password"
+                  name="confirm_password"
                   type="password"
+                  {...register("confirm_password", {
+                    required: true,
+                    validate: (val) =>
+                      val === password.current || "Passwords do not match",
+                  })}
                 />
-                {errors.password?.type === "required" && (
-                  <span className="text-red-700">Password is required</span>
-                )}
-                {errors.password?.type === "minLength" && (
+                {errors.confirm_password && (
                   <span className="text-red-700">
-                    Password must be 6 characters
-                  </span>
-                )}
-                {errors.password?.type === "pattern" && (
-                  <span className="text-red-700">
-                    Password must be 1 lower case, 1 Uppercase and a special
-                    character
+                    {errors.confirm_password.message}
                   </span>
                 )}
               </div>
@@ -172,6 +203,9 @@ const Signup = () => {
               />
             </div>
           </form>
+
+          {/* form ended */}
+
           <p className="pb-12 text-white ml-16">
             Have account?{" "}
             <Link to="/login" className="underline">

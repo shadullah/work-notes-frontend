@@ -1,31 +1,41 @@
-// import { useContext } from "react";
-import { Link } from "react-router-dom";
-// import { AuthContext } from "../../../providers/AuthProvider";
-// import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/man-hands-hold-touch-tablet-pc-with-login-box-travel-concept.jpg";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  //   const { signIn } = useContext(AuthContext);
-  //   const navigate = useNavigate();
-  //   const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  //   const from = location.state?.form?.pathname || "/";
+  const from = location.state?.form?.pathname || "/";
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const email = form.email.value;
+    const username = form.username.value;
     const password = form.password.value;
-    console.log(email, password);
+    // console.log(username, password);
+    try {
+      const response = await axios.post("http://localhost:8000/todo/login/", {
+        username: username,
+        password: password,
+      });
+      if (response.data?.token) {
+        localStorage.setItem("token", response.data.token);
+        navigate(from, { replace: true });
+        toast.success("Logged In successfully", { duration: 6000 });
+        console.log("Login successful", response.data);
+      } else {
+        console.error("No token returned from API");
+      }
+    } catch (error) {
+      toast.error("Login information is Not correct", { duration: 6000 });
 
-    // signIn(email, password).then((res) => {
-    //   toast("Hello World");
-
-    //   const user = res.user;
-    //   localStorage.setItem("email", JSON.stringify(email));
-    //   console.log(user);
-    //   navigate(from, { replace: true });
-    // });
+      console.error(
+        "Login failed",
+        error.response ? error.response.data : error
+      );
+    }
   };
   return (
     <div>
@@ -55,6 +65,7 @@ const Login = () => {
                   className="appearance-none border-b-2 border-violet-500 w-full py-2 px-3 text-gray-700 "
                   name="username"
                   type="text"
+                  required
                 />
               </div>
               <div className="w-full px-3 mb-6">
@@ -65,6 +76,7 @@ const Login = () => {
                   className="appearance-none border-b-2 border-violet-500 w-full py-2 px-3 text-gray-700"
                   name="password"
                   type="password"
+                  required
                 />
               </div>
             </div>

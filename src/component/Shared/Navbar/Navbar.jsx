@@ -1,12 +1,31 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LuListTodo } from "react-icons/lu";
 import { RiMenuFill } from "react-icons/ri";
+import axios from "axios";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/todo/logout/", {
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      });
+      if (res.status == 200) {
+        console.log("logout successfull");
+        localStorage.removeItem("token");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    navigate("/login");
   };
   return (
     <div>
@@ -37,20 +56,14 @@ const Navbar = () => {
             <li className="mx-4 my-6 md:my-0">
               <Link to="/about">About</Link>
             </li>
-            <li className="mx-4 my-6 md:my-0">
-              <Link to="/login">Login</Link>
-            </li>
-            <li className="mx-4 my-6 md:my-0">
-              <Link to="/signup">Signup</Link>
-            </li>
-            <li className="mx-4 my-6 md:my-0">
-              <Link to="/menu">Menu Items</Link>
-            </li>
-            <li className="mx-4 my-6 md:my-0">
-              <Link to="/dashboard/payment">Dashboard</Link>
-            </li>
-            {/* {user ? (
+            {localStorage.getItem("token") ? (
               <>
+                <li className="mx-4 my-6 md:my-0">
+                  <Link to="/">Profile</Link>
+                </li>
+                <li className="mx-4 my-6 md:my-0">
+                  <Link to="/">Dashboard</Link>
+                </li>
                 <li className="mx-4 my-6 md:my-0">
                   <button onClick={handleLogout}>Logout</button>
                 </li>
@@ -60,8 +73,11 @@ const Navbar = () => {
                 <li className="mx-4 my-6 md:my-0">
                   <Link to="/login">Login</Link>
                 </li>
+                <li className="mx-4 my-6 md:my-0">
+                  <Link to="/signup">Signup</Link>
+                </li>
               </>
-            )} */}
+            )}
           </ul>
         </div>
       </nav>

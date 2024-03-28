@@ -21,6 +21,7 @@ const Navbar = () => {
       if (res.status == 200) {
         console.log("logout successfull");
         localStorage.removeItem("token");
+        localStorage.removeItem("userId");
       }
     } catch (err) {
       console.log(err);
@@ -59,7 +60,7 @@ const Navbar = () => {
             {localStorage.getItem("token") ? (
               <>
                 <li className="mx-4 my-6 md:my-0">
-                  <Link to="/">Profile</Link>
+                  <Link to="/profile">Profile</Link>
                 </li>
                 <li className="mx-4 my-6 md:my-0">
                   <Link to="/">Dashboard</Link>

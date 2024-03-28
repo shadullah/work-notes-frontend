@@ -4,6 +4,7 @@ import Home from "../component/Home/Home/Home";
 import TaskDetails from "../component/Tasks/TaskDetails";
 import Login from "../component/Login/Login";
 import Signup from "../component/SignUp/Signup";
+import Profile from "../component/pages/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <Signup></Signup>,
+      },
+      {
+        path: "profile",
+        element: <Profile></Profile>,
       },
       {
         path: "/:id",

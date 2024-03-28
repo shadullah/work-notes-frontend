@@ -22,6 +22,8 @@ const Login = () => {
       });
       if (response.data?.token) {
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userId", response.data.user_id);
+
         navigate(from, { replace: true });
         toast.success("Logged In successfully", { duration: 6000 });
         console.log("Login successful", response.data);

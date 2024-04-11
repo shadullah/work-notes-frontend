@@ -38,20 +38,15 @@ const Signup = () => {
       toast.loading("Wait for server response");
 
       if (response.status === 201) {
-        // Registration successful
-
         console.log("Registration successful", response.data);
-        // Redirect or show success message
       } else {
         reset();
         navigate("/login");
         toast.success(response.data, { duration: 4000 });
-        // Handle any other HTTP status codes as needed
         console.error("Registration failed", response.data);
       }
     } catch (error) {
       console.error("An error occurred during registration", error);
-      // Handle errors, e.g., show error message to user
     }
   };
 

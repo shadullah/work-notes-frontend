@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Add_task = () => {
   const [priority, setPriority] = useState([]);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/todo/priority_choice/`)
@@ -28,7 +30,7 @@ const Add_task = () => {
     console.log(title, description, priority);
 
     try {
-      const addpost = await axios.post(
+      await axios.post(
         "http://127.0.0.1:8000/todo/list/",
         {
           title: title,
@@ -44,7 +46,8 @@ const Add_task = () => {
           },
         }
       );
-      console.log(addpost.data);
+      // console.log(addpost.data);
+      navigate("/");
     } catch (error) {
       console.log("add post Failed", error);
     }

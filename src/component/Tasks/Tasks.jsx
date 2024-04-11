@@ -10,7 +10,6 @@ const Tasks = () => {
       try {
         const res = await axios.get("http://localhost:8000/api/");
         setTasks(res.data);
-        console.log(res.data);
       } catch (err) {
         console.log(err);
       }

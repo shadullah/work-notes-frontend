@@ -1,10 +1,23 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { FaEdit } from "react-icons/fa";
+import { MdOutlineDelete } from "react-icons/md";
+import { useParams, useNavigate } from "react-router-dom";
 
 const TaskDetails = () => {
   const { id } = useParams();
   const [task, setTask] = useState([]);
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/${id}/`);
+      navigate("/");
+      console.log("success");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     const getTask = async () => {
@@ -29,6 +42,14 @@ const TaskDetails = () => {
         <p>{task.date}</p>
         <p>Priority: {task.priority}</p>
         <p>Author: {task?.user?.username}</p>
+        <div className="my-6">
+          <button onClick={handleDelete} className="text-2xl mx-3">
+            <MdOutlineDelete />
+          </button>
+          <button className="text-2xl mx-3">
+            <FaEdit />
+          </button>
+        </div>
       </div>
     </div>
   );

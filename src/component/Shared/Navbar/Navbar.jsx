@@ -54,11 +54,12 @@ const Navbar = () => {
             <li className="mx-4 my-6 md:my-0">
               <Link to="/">Home</Link>
             </li>
-            <li className="mx-4 my-6 md:my-0">
-              <Link to="/addTask">Add Task</Link>
-            </li>
+
             {localStorage.getItem("token") ? (
               <>
+                <li className="mx-4 my-6 md:my-0">
+                  <Link to="/addTask">Add Task</Link>
+                </li>
                 <li className="mx-4 my-6 md:my-0">
                   <Link to="/profile">Profile</Link>
                 </li>

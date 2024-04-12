@@ -6,6 +6,7 @@ import Login from "../component/Login/Login";
 import Signup from "../component/SignUp/Signup";
 import Profile from "../component/pages/Profile/Profile";
 import Add_task from "../component/Tasks/Add_task";
+import Update_task from "../component/Tasks/Update_task";
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/addTask",
+        path: "addTask",
         element: <Add_task></Add_task>,
       },
       {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "/:id",
         element: <TaskDetails></TaskDetails>,
+      },
+      {
+        path: "/:id/update",
+        element: <Update_task></Update_task>,
       },
     ],
   },

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdOutlineDelete } from "react-icons/md";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 const TaskDetails = () => {
   const { id } = useParams();
@@ -46,9 +46,11 @@ const TaskDetails = () => {
           <button onClick={handleDelete} className="text-2xl mx-3">
             <MdOutlineDelete />
           </button>
-          <button className="text-2xl mx-3">
-            <FaEdit />
-          </button>
+          <Link to={`/${task.id}/update`}>
+            <button className="text-2xl mx-3">
+              <FaEdit />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import Signup from "../component/SignUp/Signup";
 import Profile from "../component/pages/Profile/Profile";
 import Add_task from "../component/Tasks/Add_task";
 import Update_task from "../component/Tasks/Update_task";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -39,7 +40,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/:id/update",
-        element: <Update_task></Update_task>,
+        element: (
+          <PrivateRoute>
+            <Update_task></Update_task>
+          </PrivateRoute>
+        ),
       },
     ],
   },

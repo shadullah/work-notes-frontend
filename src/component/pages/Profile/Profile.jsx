@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 const Profile = () => {
   const user_id = localStorage.getItem("userId");
-  console.log(user_id);
   const [users1, setusers1] = useState([]);
 
   //    direct korle cors issue dey

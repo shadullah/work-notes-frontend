@@ -8,6 +8,7 @@ const TaskDetails = () => {
   const { id } = useParams();
   const [task, setTask] = useState([]);
   const navigate = useNavigate();
+  const user_id = localStorage.getItem("userId");
 
   const handleDelete = async () => {
     try {
@@ -42,16 +43,22 @@ const TaskDetails = () => {
         <p>{task.date}</p>
         <p>Priority: {task.priority}</p>
         <p>Author: {task?.user?.username}</p>
-        <div className="my-6">
-          <button onClick={handleDelete} className="text-2xl mx-3">
-            <MdOutlineDelete />
-          </button>
-          <Link to={`/${task.id}/update`}>
-            <button className="text-2xl mx-3">
-              <FaEdit />
-            </button>
-          </Link>
-        </div>
+        {user_id == task.user?.id ? (
+          <>
+            <div className="my-6">
+              <button onClick={handleDelete} className="text-2xl mx-3">
+                <MdOutlineDelete />
+              </button>
+              <Link to={`/${task.id}/update`}>
+                <button className="text-2xl mx-3">
+                  <FaEdit />
+                </button>
+              </Link>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

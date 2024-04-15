@@ -1,5 +1,6 @@
 import useTasks from "../../../../hooks/useTasks";
 import KeenSlider from "./KeenSlider";
+import CountUp from "react-countup";
 
 const Infomation = () => {
   const [tasks] = useTasks();
@@ -16,19 +17,28 @@ const Infomation = () => {
             <div className="bg-red-400 p-4 rounded-md w-full">
               <h4 className="text-2xl mb-3">All Tasks</h4>
               <p>
-                <span className="text-4xl">{tasks.length}</span> Tasks
+                <span className="text-4xl">
+                  <CountUp start={0} end={tasks.length} duration={5} />{" "}
+                </span>{" "}
+                Tasks
               </p>
             </div>
             <div className="bg-indigo-400 p-4 rounded-md">
               <h4 className="text-2xl mb-3">Completed</h4>
               <p>
-                <span className="text-4xl">{completedtask}</span> Tasks
+                <span className="text-4xl">
+                  <CountUp start={0} end={completedtask} duration={5} />{" "}
+                </span>{" "}
+                Tasks
               </p>
             </div>
             <div className="bg-cyan-400 p-4 rounded-md">
               <h4 className="text-2xl mb-3">In Progress</h4>
               <p>
-                <span className="text-4xl">{inProgress}</span> Tasks
+                <span className="text-4xl">
+                  <CountUp start={0} end={inProgress} duration={5} />{" "}
+                </span>{" "}
+                Tasks
               </p>
             </div>
           </div>

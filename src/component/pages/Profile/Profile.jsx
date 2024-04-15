@@ -1,9 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import useUsers from "../../../hooks/useUsers";
 
 const Profile = () => {
-  const user_id = localStorage.getItem("userId");
-  const [users1, setusers1] = useState([]);
+  const [users1] = useUsers();
 
   //    direct korle cors issue dey
   //   useEffect(() => {
@@ -11,21 +9,6 @@ const Profile = () => {
   //       .then((res) => res.json())
   //       .then((data) => console.log(data));
   //   }, [user_id]);
-
-  useEffect(() => {
-    const getUsers = async () => {
-      try {
-        const res = await axios.get(
-          `http://127.0.0.1:8000/todo/users/${user_id}/`
-        );
-        console.log(res.data);
-        setusers1(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getUsers();
-  }, [user_id]);
 
   return (
     <div>

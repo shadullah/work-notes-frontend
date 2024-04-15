@@ -3,6 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { LuListTodo } from "react-icons/lu";
 import { RiMenuFill } from "react-icons/ri";
 import axios from "axios";
+import { FaPlus } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+import { RxAvatar } from "react-icons/rx";
+import useUsers from "../../../hooks/useUsers";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,6 +14,7 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const navigate = useNavigate();
+  const [users1] = useUsers();
 
   const handleLogout = async () => {
     try {
@@ -47,7 +52,7 @@ const Navbar = () => {
         </div>
         <div className="">
           <ul
-            className={`md:flex md:items-center text-xl md:static absolute w-full md:w-auto left-0 py-6 md:py-0 pl-7 md:pl-0 opacity-0 md:opacity-100 transition-all ease-in duration-500  text-white font-semibold ${
+            className={`md:flex md:items-center text-sm md:static absolute w-full md:w-auto left-0 py-6 md:py-0 pl-7 md:pl-0 opacity-0 md:opacity-100 transition-all ease-in duration-500  text-white font-semibold ${
               isMenuOpen ? "opacity-100 top-[80px] bg-gray-300" : "opacity-0"
             }  `}
           >
@@ -58,16 +63,27 @@ const Navbar = () => {
             {localStorage.getItem("token") ? (
               <>
                 <li className="mx-4 my-6 md:my-0">
-                  <Link to="/addTask">Add Task</Link>
+                  <Link
+                    className="flex items-center bg-pink-400 p-3 rounded-full"
+                    to="/addTask"
+                  >
+                    Add Task <FaPlus className="ml-2" />
+                  </Link>
                 </li>
                 <li className="mx-4 my-6 md:my-0">
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/profile">
+                    <div className="flex items-center">
+                      <RxAvatar className="text-3xl mr-3" />
+                      <div>
+                        <p className="text-xl italic">{users1.username}</p>
+                      </div>
+                    </div>
+                  </Link>
                 </li>
                 <li className="mx-4 my-6 md:my-0">
-                  <Link to="/">Dashboard</Link>
-                </li>
-                <li className="mx-4 my-6 md:my-0">
-                  <button onClick={handleLogout}>Logout</button>
+                  <button onClick={handleLogout}>
+                    <MdLogout title="Logout" className="text-xl" />
+                  </button>
                 </li>
               </>
             ) : (

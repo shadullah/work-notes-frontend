@@ -10,7 +10,7 @@ const KeenSlider = () => {
   const [tasks] = useTasks();
   const [sliderRef] = useKeenSlider({
     mode: "free-snap",
-    autoplay: true,
+    autoSlide: true,
     slides: {
       origin: "center",
       perView: 2,

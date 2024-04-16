@@ -2,6 +2,7 @@ import SingleTask from "./SingleTask";
 import Infomation from "../Home/Home/Infomation/Infomation";
 import useTasks from "../../hooks/useTasks";
 import { CgGoogleTasks } from "react-icons/cg";
+import Tips from "../Tips/Tips";
 
 const Tasks = () => {
   const [tasks] = useTasks();
@@ -31,7 +32,10 @@ const Tasks = () => {
                   ))}
                 </div>
               </div>
-              <div className="w-1/3 text-white">Row</div>
+              <div className="w-1/3 text-white">
+                <h2 className="text-2xl mb-6 ml-6">Tips</h2>
+                <Tips />
+              </div>
             </div>
           </>
         ) : (

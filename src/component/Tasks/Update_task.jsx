@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Update_task = () => {
   const { id } = useParams();
@@ -68,6 +69,7 @@ const Update_task = () => {
         }
       );
       navigate(`/`);
+      toast.success("Task Updated Successfully", { duration: 6000 });
     } catch (err) {
       console.log(err);
     }

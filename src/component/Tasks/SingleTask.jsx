@@ -20,7 +20,7 @@ const SingleTask = ({ task }) => {
             </>
           )}
         </p>
-        <h1 className="text-2xl mb-6 font-bold">{title}</h1>
+        <h1 className="text-2xl mb-6 font-bold text-justify ">{title}</h1>
         <p className="text-gray-400">
           {sliceDescrip}...{" "}
           <Link to={`/${task.id}`}>
@@ -29,7 +29,7 @@ const SingleTask = ({ task }) => {
             </button>
           </Link>{" "}
         </p>
-        <div className="flex justify-between mt-6">
+        <div className="block md:flex justify-between mt-6">
           <p>
             Author: <span className="uppercase">{user.username}</span>
           </p>

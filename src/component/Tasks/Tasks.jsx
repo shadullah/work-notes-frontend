@@ -4,18 +4,27 @@ import useTasks from "../../hooks/useTasks";
 import { CgGoogleTasks } from "react-icons/cg";
 import Tips from "../Tips/Tips";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import KeenSlider from "../Home/Home/Infomation/KeenSlider";
 
 const Tasks = () => {
   const [tasks] = useTasks();
   return (
     <>
-      <div className="bg-gray-800 text-white px-12">
+      <div className="bg-gray-800 text-white px-6 md:px-12 pb-12">
         {tasks.length !== 0 ? (
           <>
-            <div className="flex justify-between">
+            <div className="block md:flex justify-between">
               <div className="w-full">
-                <Infomation />
-                <div className="mt-12">
+                <div className="block md:flex">
+                  <div className="w-full md:w-1/2">
+                    <Infomation />{" "}
+                  </div>
+                  <div className="w-full md:w-1/2">
+                    <KeenSlider />{" "}
+                  </div>
+                </div>
+
+                <div className="mt-6 md:mt-12">
                   <h1 className="text-4xl italic flex items-center">
                     All Tasks{" "}
                     <span className="ml-3 text-3xl text-gray-400">
@@ -27,7 +36,7 @@ const Tasks = () => {
                   </p>
                 </div>
 
-                <div className="bg-gray-700 rounded-lg my-6 p-6 grid grid-cols-3 gap-6">
+                <div className="bg-gray-700 rounded-lg my-6 p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
                     <div className="flex items-center justify-between">
                       <h1 className="bg-gray-800 font-bold p-3 rounded-full text-red-400">
@@ -95,7 +104,7 @@ const Tasks = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-1/3 text-white">
+              <div className="w-full md:w-1/3 text-white">
                 <h2 className="text-2xl mb-6 ml-6">Tips</h2>
                 <Tips />
               </div>

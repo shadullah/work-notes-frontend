@@ -23,7 +23,8 @@ const KeenSlider = () => {
   const regular = tasks.filter((task) => task.priority == "Regular").length;
 
   return (
-    <div>
+    <div className="mt-6 md:mt-0">
+      <h3 className="text-xl text-center">Priorities</h3>
       <div ref={sliderRef} className="keen-slider mt-6">
         <div className="keen-slider__slide number-slide3 bg-gray-700 p-4 rounded-md border-gray-500 border-[1px]">
           <span className="text-4xl">

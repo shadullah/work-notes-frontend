@@ -3,6 +3,7 @@ import Infomation from "../Home/Home/Infomation/Infomation";
 import useTasks from "../../hooks/useTasks";
 import { CgGoogleTasks } from "react-icons/cg";
 import Tips from "../Tips/Tips";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 const Tasks = () => {
   const [tasks] = useTasks();
@@ -26,10 +27,72 @@ const Tasks = () => {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-3 gap-6">
-                  {tasks.map((task, index) => (
-                    <SingleTask key={index} task={task} />
-                  ))}
+                <div className="bg-gray-700 rounded-lg my-6 p-6 grid grid-cols-3 gap-6">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <h1 className="bg-gray-800 font-bold p-3 rounded-full text-red-400">
+                        Urgent{" "}
+                        <span className="bg-red-400 text-white p-2 rounded-full">
+                          {
+                            tasks.filter((task) => task.priority === "Urgent")
+                              .length
+                          }
+                        </span>
+                      </h1>
+                      <p>
+                        <BsThreeDotsVertical />
+                      </p>
+                    </div>
+                    {tasks
+                      .filter((task) => task.priority == "Urgent")
+                      .map((task, index) => (
+                        <SingleTask key={index} task={task} />
+                      ))}
+                  </div>
+
+                  <div className="">
+                    <div className="flex items-center justify-between">
+                      <h1 className="bg-gray-800 font-bold p-3 rounded-full text-indigo-400">
+                        Important{" "}
+                        <span className="bg-indigo-400 text-white p-2 rounded-full">
+                          {
+                            tasks.filter(
+                              (task) => task.priority === "Important"
+                            ).length
+                          }
+                        </span>
+                      </h1>
+                      <p>
+                        <BsThreeDotsVertical />
+                      </p>
+                    </div>
+                    {tasks
+                      .filter((task) => task.priority == "Important")
+                      .map((task, index) => (
+                        <SingleTask key={index} task={task} />
+                      ))}
+                  </div>
+                  <div className="">
+                    <div className="flex items-center justify-between">
+                      <h1 className="bg-gray-800 font-bold p-3 rounded-full text-cyan-400">
+                        Regular{" "}
+                        <span className="bg-cyan-400 text-white p-2 rounded-full">
+                          {
+                            tasks.filter((task) => task.priority === "Regular")
+                              .length
+                          }
+                        </span>
+                      </h1>
+                      <p>
+                        <BsThreeDotsVertical />
+                      </p>
+                    </div>
+                    {tasks
+                      .filter((task) => task.priority == "Regular")
+                      .map((task, index) => (
+                        <SingleTask key={index} task={task} />
+                      ))}
+                  </div>
                 </div>
               </div>
               <div className="w-1/3 text-white">

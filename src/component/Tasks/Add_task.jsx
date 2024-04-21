@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Add_task = () => {
   const [priority, setPriority] = useState([]);
@@ -48,7 +49,10 @@ const Add_task = () => {
       );
       // console.log(addpost.data);
       navigate("/");
+      toast.success("Task Added Successfully", { duration: 6000 });
     } catch (error) {
+      toast.error("Task could not be added", { duration: 6000 });
+
       console.log("add post Failed", error);
     }
   };

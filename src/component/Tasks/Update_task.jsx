@@ -71,6 +71,7 @@ const Update_task = () => {
       navigate(`/`);
       toast.success("Task Updated Successfully", { duration: 6000 });
     } catch (err) {
+      toast.error("Task Not updated", { duration: 6000 });
       console.log(err);
     }
   };

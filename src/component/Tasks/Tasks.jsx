@@ -43,8 +43,9 @@ const Tasks = () => {
                         Urgent{" "}
                         <span className="bg-red-400 text-white p-2 rounded-full">
                           {
-                            tasks.filter((task) => task.priority === "Urgent")
-                              .length
+                            tasks.filter(
+                              (task) => task.priority[0].name === "Urgent"
+                            ).length
                           }
                         </span>
                       </h1>
@@ -53,7 +54,7 @@ const Tasks = () => {
                       </p>
                     </div>
                     {tasks
-                      .filter((task) => task.priority == "Urgent")
+                      .filter((task) => task.priority[0].name == "Urgent")
                       .map((task, index) => (
                         <SingleTask key={index} task={task} />
                       ))}
@@ -66,7 +67,7 @@ const Tasks = () => {
                         <span className="bg-indigo-400 text-white p-2 rounded-full">
                           {
                             tasks.filter(
-                              (task) => task.priority === "Important"
+                              (task) => task.priority[0].name === "Important"
                             ).length
                           }
                         </span>
@@ -76,7 +77,7 @@ const Tasks = () => {
                       </p>
                     </div>
                     {tasks
-                      .filter((task) => task.priority == "Important")
+                      .filter((task) => task.priority[0].name == "Important")
                       .map((task, index) => (
                         <SingleTask key={index} task={task} />
                       ))}
@@ -87,8 +88,9 @@ const Tasks = () => {
                         Regular{" "}
                         <span className="bg-cyan-400 text-white p-2 rounded-full">
                           {
-                            tasks.filter((task) => task.priority === "Regular")
-                              .length
+                            tasks.filter(
+                              (task) => task.priority[0].name === "Regular"
+                            ).length
                           }
                         </span>
                       </h1>
@@ -97,7 +99,7 @@ const Tasks = () => {
                       </p>
                     </div>
                     {tasks
-                      .filter((task) => task.priority == "Regular")
+                      .filter((task) => task.priority[0].name == "Regular")
                       .map((task, index) => (
                         <SingleTask key={index} task={task} />
                       ))}

@@ -46,24 +46,30 @@ const TaskDetails = () => {
           <p className="flex">
             Priority:
             <span className="ml-2">
-              {task.priority == "Urgent" ? (
-                <span className="text-orange-400 uppercase flex items-center">
-                  {task.priority}{" "}
-                  <span className="ml-2">
-                    <FaTemperatureArrowUp />
+              {task.priority && task.priority.length > 0 ? (
+                task.priority[0].name == "Urgent" ? (
+                  <span className="text-orange-400 uppercase flex items-center">
+                    {task.priority[0].name}{" "}
+                    <span className="ml-2">
+                      <FaTemperatureArrowUp />
+                    </span>
                   </span>
-                </span>
-              ) : task.priority == "Important" ? (
-                <span className="text-orange-400 flex items-center">
-                  {task.priority}{" "}
-                  <span className="ml-2">
-                    <ImPower />
+                ) : task.priority[0].name == "Important" ? (
+                  <span className="text-orange-400 flex items-center">
+                    {task.priority[0].name}{" "}
+                    <span className="ml-2">
+                      <ImPower />
+                    </span>
                   </span>
-                </span>
+                ) : (
+                  <>
+                    <span className="text-lime-300">
+                      {task.priority[0].name}
+                    </span>
+                  </>
+                )
               ) : (
-                <>
-                  <span className="text-lime-300">{task.priority}</span>
-                </>
+                <span>No Priorirty Found</span>
               )}
             </span>
           </p>

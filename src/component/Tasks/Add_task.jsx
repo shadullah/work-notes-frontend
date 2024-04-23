@@ -27,8 +27,10 @@ const Add_task = () => {
     e.preventDefault();
     const title = e.target.title.value;
     const description = e.target.description.value;
-    const priority = e.target.priority.value;
-    console.log(title, description, priority);
+    const prioritySelected = e.target.priority.value;
+    const priorityObj = priority.find((prio) => prio.name === prioritySelected);
+    const priorityArr = priorityObj;
+    console.log(title, description, priorityArr);
 
     try {
       await axios.post(
@@ -38,7 +40,7 @@ const Add_task = () => {
           description: description,
           completed: false,
           date: new Date(),
-          priority: priority,
+          priority: priorityArr,
           user: user,
         },
         {

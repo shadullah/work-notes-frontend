@@ -43,8 +43,8 @@ const Tasks = () => {
                         Urgent{" "}
                         <span className="bg-red-400 text-white p-2 rounded-full">
                           {
-                            tasks.filter(
-                              (task) => task.priority[0].name === "Urgent"
+                            tasks?.filter(
+                              (task) => task?.priority[0]?.name === "Urgent"
                             ).length
                           }
                         </span>
@@ -53,11 +53,15 @@ const Tasks = () => {
                         <BsThreeDotsVertical />
                       </p>
                     </div>
-                    {tasks
-                      .filter((task) => task.priority[0].name == "Urgent")
-                      .map((task, index) => (
-                        <SingleTask key={index} task={task} />
-                      ))}
+                    {tasks.length !== 0 ? (
+                      tasks
+                        .filter((task) => task?.priority[0]?.name == "Urgent")
+                        .map((task, index) => (
+                          <SingleTask key={index} task={task} />
+                        ))
+                    ) : (
+                      <></>
+                    )}
                   </div>
 
                   <div className="">
@@ -67,7 +71,7 @@ const Tasks = () => {
                         <span className="bg-indigo-400 text-white p-2 rounded-full">
                           {
                             tasks.filter(
-                              (task) => task.priority[0].name === "Important"
+                              (task) => task?.priority[0]?.name === "Important"
                             ).length
                           }
                         </span>
@@ -76,11 +80,17 @@ const Tasks = () => {
                         <BsThreeDotsVertical />
                       </p>
                     </div>
-                    {tasks
-                      .filter((task) => task.priority[0].name == "Important")
-                      .map((task, index) => (
-                        <SingleTask key={index} task={task} />
-                      ))}
+                    {tasks.length !== 0 ? (
+                      tasks
+                        .filter(
+                          (task) => task?.priority[0]?.name == "Important"
+                        )
+                        .map((task, index) => (
+                          <SingleTask key={index} task={task} />
+                        ))
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <div className="">
                     <div className="flex items-center justify-between">
@@ -89,7 +99,7 @@ const Tasks = () => {
                         <span className="bg-cyan-400 text-white p-2 rounded-full">
                           {
                             tasks.filter(
-                              (task) => task.priority[0].name === "Regular"
+                              (task) => task?.priority[0]?.name === "Regular"
                             ).length
                           }
                         </span>
@@ -98,11 +108,15 @@ const Tasks = () => {
                         <BsThreeDotsVertical />
                       </p>
                     </div>
-                    {tasks
-                      .filter((task) => task.priority[0].name == "Regular")
-                      .map((task, index) => (
-                        <SingleTask key={index} task={task} />
-                      ))}
+                    {tasks.length !== 0 ? (
+                      tasks
+                        .filter((task) => task?.priority[0]?.name == "Regular")
+                        .map((task, index) => (
+                          <SingleTask key={index} task={task} />
+                        ))
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               </div>

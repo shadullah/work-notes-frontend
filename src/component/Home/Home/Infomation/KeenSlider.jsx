@@ -18,9 +18,15 @@ const KeenSlider = () => {
     },
   });
 
-  const urgent = tasks.filter((task) => task.priority == "Urgent").length;
-  const important = tasks.filter((task) => task.priority == "Important").length;
-  const regular = tasks.filter((task) => task.priority == "Regular").length;
+  const urgent = tasks.filter(
+    (task) => task?.priority[0]?.name == "Urgent"
+  ).length;
+  const important = tasks.filter(
+    (task) => task?.priority[0]?.name == "Important"
+  ).length;
+  const regular = tasks.filter(
+    (task) => task?.priority[0]?.name == "Regular"
+  ).length;
 
   return (
     <div className="mt-6 md:mt-0">

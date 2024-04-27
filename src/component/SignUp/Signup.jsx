@@ -35,10 +35,11 @@ const Signup = () => {
           confirm_password: data.confirm_password,
         }
       );
-      toast.loading("Wait for server response");
+      // toast.loading("Wait for server response");
 
       if (response.status === 201) {
         console.log("Registration successful", response.data);
+        history.push("/");
       } else {
         reset();
         navigate("/login");

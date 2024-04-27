@@ -6,7 +6,9 @@ import toast from "react-hot-toast";
 
 const Add_task = () => {
   const [priority, setPriority] = useState([]);
+  // console.log(priority);
   const [user, setUser] = useState(null);
+  console.log(user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,9 +30,11 @@ const Add_task = () => {
     const title = e.target.title.value;
     const description = e.target.description.value;
     const prioritySelected = e.target.priority.value;
-    const priorityObj = priority.find((prio) => prio.name === prioritySelected);
-    const priorityArr = priorityObj;
-    console.log(title, description, priorityArr);
+
+    const priorityObj = priority.find(
+      (prio) => prio.id === parseInt(prioritySelected)
+    );
+    console.log(title, description, priorityObj.id);
 
     try {
       await axios.post(
@@ -40,8 +44,8 @@ const Add_task = () => {
           description: description,
           completed: false,
           date: new Date(),
-          priority: priorityArr,
-          user: user,
+          priority: priorityObj.id,
+          user: 1,
         },
         {
           headers: {
@@ -49,6 +53,7 @@ const Add_task = () => {
           },
         }
       );
+      // setPriority(priorityArr);
       // console.log(addpost.data);
       navigate("/");
       toast.success("Task Added Successfully", { duration: 6000 });
@@ -95,8 +100,9 @@ const Add_task = () => {
               <option className="" value="" disabled>
                 Set Priority here
               </option>
+              {/* {priority.map((prio) => console.log(prio.id))} */}
               {priority.map((prio) => (
-                <option key={prio.id} value={prio.name}>
+                <option key={prio.id} value={prio.id}>
                   {prio.name}
                 </option>
               ))}

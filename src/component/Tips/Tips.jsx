@@ -7,6 +7,10 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import laptop from "../../assets/Laptop1.jpeg";
 import logs from "../../assets/dashboard.webp";
 import custom from "../../assets/custom.webp";
+import {
+  IoMdCheckmarkCircle,
+  IoMdCheckmarkCircleOutline,
+} from "react-icons/io";
 
 const Tips = () => {
   return (
@@ -68,6 +72,22 @@ const Tips = () => {
           </p>
         </SwiperSlide>
       </Swiper>
+      <div className="p-6">
+        <h1 className="text-xl mb-6">Filter by:</h1>
+        <div className="block md:flex items-center justify-between">
+          {/* <p className=`{hover: <RiCompass2Fill />}`>Completed</p>
+           */}
+          <p className="bg-gray-600 px-2 py-2 rounded-lg my-2">
+            Completed{" "}
+            <IoMdCheckmarkCircle className="inline ml-2 text-green-600" />
+          </p>
+          <p className="bg-gray-600 px-2 py-2 rounded-lg my-2">
+            Incompleted{" "}
+            <IoMdCheckmarkCircleOutline className="inline ml-2 text-red-600" />
+          </p>
+          {/* <p>Incompleted</p> */}
+        </div>
+      </div>
     </div>
   );
 };

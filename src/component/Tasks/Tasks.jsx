@@ -10,7 +10,7 @@ const Tasks = () => {
   const [tasks] = useTasks();
   return (
     <>
-      <div className="bg-gray-800 text-white px-6 md:px-12 pb-12">
+      <div className="bg-gray-800 text-white px-6 md:px-12 pt-3 pb-12">
         {tasks.length !== 0 ? (
           <>
             <div className="block md:flex justify-between">

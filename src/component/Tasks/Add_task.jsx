@@ -55,7 +55,7 @@ const Add_task = () => {
         }
       );
       // setPriority(priorityArr);
-      // console.log(addpost.data);
+      console.log(priority);
       navigate("/");
       toast.success("Task Added Successfully", { duration: 6000 });
     } catch (error) {

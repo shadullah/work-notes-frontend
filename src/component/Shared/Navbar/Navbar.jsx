@@ -7,6 +7,7 @@ import { FaPlus } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { RxAvatar } from "react-icons/rx";
 import useUsers from "../../../hooks/useUsers";
+import { CiUnlock } from "react-icons/ci";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -89,7 +90,12 @@ const Navbar = () => {
             ) : (
               <>
                 <li className="mx-4 my-6 md:my-0">
-                  <Link to="/login">Login</Link>
+                  <Link
+                    className="flex items-center bg-pink-400 p-3 rounded-full"
+                    to="/addTask"
+                  >
+                    Login <CiUnlock className="ml-2 text-2xl font-bold" />
+                  </Link>
                 </li>
                 <li className="mx-4 my-6 md:my-0">
                   <Link to="/signup">Signup</Link>

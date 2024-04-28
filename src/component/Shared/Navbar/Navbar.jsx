@@ -92,7 +92,7 @@ const Navbar = () => {
                 <li className="mx-4 my-6 md:my-0">
                   <Link
                     className="flex items-center bg-pink-400 p-3 rounded-full"
-                    to="/addTask"
+                    to="/login"
                   >
                     Login <CiUnlock className="ml-2 text-2xl font-bold" />
                   </Link>

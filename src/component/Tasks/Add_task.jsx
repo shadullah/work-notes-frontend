@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const Add_task = () => {
+  // const user_id = localStorage.getItem("userId");
+
   const [priority, setPriority] = useState([]);
-  // console.log(priority);
-  const [user, setUser] = useState(null);
-  console.log(user);
+  const [user, setUser] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,15 +39,21 @@ const Add_task = () => {
 
     try {
       await axios.post(
-        "http://127.0.0.1:8000/todo/list/",
+        "http://127.0.0.1:8000/api/",
         {
+          user: user,
           title: title,
           description: description,
           completed: false,
           date: new Date(),
-          priority: [priorityObj],
-          user: 1,
+          priority: [priorityObj.slug],
         },
+        // {
+        //   user: 1,
+        //   title: "Complete assignment",
+        //   description: "Finish the project before the deadline",
+        //   priority: ["important"],
+        // },
         {
           headers: {
             Authorization: `Token ${localStorage.getItem("token")}`,
@@ -55,7 +61,7 @@ const Add_task = () => {
         }
       );
       // setPriority(priorityArr);
-      console.log(priority);
+      // console.log(priority);
       navigate("/");
       toast.success("Task Added Successfully", { duration: 6000 });
     } catch (error) {

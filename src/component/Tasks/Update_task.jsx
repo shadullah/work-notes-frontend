@@ -10,8 +10,8 @@ const Update_task = () => {
   const [user, setUser] = useState("");
   const [title, setTitle] = useState("");
   const [des, setDes] = useState("");
-  const [complete, setComplete] = useState("");
-  const [prior, setPrio] = useState(false);
+  const [complete, setComplete] = useState(false);
+  const [prior, setPrio] = useState("");
 
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/todo/priority_choice/`)
@@ -31,25 +31,31 @@ const Update_task = () => {
     const getTask = async () => {
       try {
         const res = await axios.get(`http://localhost:8000/api/${id}/`);
-        console.log(res.data);
+        console.log(res.data.priority);
         setTitle(res.data?.title);
         setDes(res.data?.description);
-        setPrio(res.data?.priority);
+        setPrio(res.data?.priority[0]);
         setComplete(res.data?.completed);
       } catch (err) {
         console.log(err);
       }
     };
     getTask();
-  }, []);
+  }, [id]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     const title = e.target.title.value;
     const description = e.target.description.value;
-    const priority = e.target.priority.value;
+    const prioritySelected = e.target.priority.value;
+    console.log(prioritySelected);
     // const complete = e.target.completed.value;
     const complete = e.target.querySelector('input[type="checkbox"]').checked;
+
+    // const priorityObj = priority.find(
+    //   (prio) => prio.id === parseInt(prioritySelected)
+    // );
+    // console.log(priorityObj);
 
     try {
       await axios.put(
@@ -59,7 +65,7 @@ const Update_task = () => {
           description: description,
           completed: complete,
           date: new Date(),
-          priority: priority,
+          priority: [prioritySelected],
           user: user,
         },
         {
@@ -119,7 +125,7 @@ const Update_task = () => {
               Set Priority here
             </option>
             {priority.map((prio) => (
-              <option key={prio.id} value={prio.name}>
+              <option key={prio.id} value={prio?.slug}>
                 {prio.name}
               </option>
             ))}

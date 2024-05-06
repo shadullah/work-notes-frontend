@@ -16,7 +16,7 @@ const useTasks = () => {
     };
     getTasks();
   }, []);
-  return [tasks];
+  return [tasks, setTasks];
 };
 
 export default useTasks;

@@ -45,7 +45,7 @@ const Add_task = () => {
           title: title,
           description: description,
           completed: false,
-          date: new Date(),
+          date: new Date().getTime(),
           priority: [priorityObj.slug],
         },
         // {

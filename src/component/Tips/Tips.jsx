@@ -11,8 +11,33 @@ import {
   IoMdCheckmarkCircle,
   IoMdCheckmarkCircleOutline,
 } from "react-icons/io";
+import { BiSearchAlt2 } from "react-icons/bi";
+// import { useState } from "react";
+import useTasks from "../../hooks/useTasks";
 
 const Tips = () => {
+  // const [setSearchVal] = useState("");
+  const [setTasks] = useTasks();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchInput = e.target.search.value;
+    console.log(searchInput);
+    fetchSearch(searchInput);
+  };
+
+  const fetchSearch = async (searchVal) => {
+    try {
+      const res = await fetch(
+        `http://127.0.0.1:8000/todo/list/?search=${searchVal}`
+      );
+      const data = res.json();
+      setTasks(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="w-full md:w-80 mx-auto">
       <Swiper
@@ -72,6 +97,21 @@ const Tips = () => {
           </p>
         </SwiperSlide>
       </Swiper>
+      <div>
+        <form onSubmit={handleSearch} className="">
+          <div className="flex items-center px-6 py-3 rounded-lg mt-6">
+            <input
+              type="text"
+              className="bg-transparent border-b-2 bg-gray-300 p-[2.5px] outline-none w-full"
+              placeholder="Search Here..."
+              name="search"
+            />
+            <button type="submit" className="">
+              <BiSearchAlt2 className="text-3xl border-b-2 p-1 " />
+            </button>
+          </div>
+        </form>
+      </div>
       <div className="p-6">
         <h1 className="text-xl mb-6">Filter by:</h1>
         <div className="block md:flex items-center justify-between">
@@ -85,7 +125,6 @@ const Tips = () => {
             Incompleted{" "}
             <IoMdCheckmarkCircleOutline className="inline ml-2 text-red-600" />
           </p>
-          {/* <p>Incompleted</p> */}
         </div>
       </div>
     </div>

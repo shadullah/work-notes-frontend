@@ -2,11 +2,17 @@ import useTasks from "../../../../hooks/useTasks";
 // import KeenSlider from "./KeenSlider";
 import CountUp from "react-countup";
 
-const Infomation = () => {
+const Infomation = ({ setFilteredTasks, handleComplete }) => {
   const [tasks] = useTasks();
 
   const completedtask = tasks.filter((task) => task.completed).length;
   const inProgress = tasks.filter((task) => !task.completed).length;
+
+  // const handleCompleteness = () => {
+  //   const completeness = tasks.filter((task) => task.completed);
+  //   console.log("i am clicked");
+  //   handleComplete(completeness);
+  // };
 
   return (
     <>
@@ -22,7 +28,10 @@ const Infomation = () => {
               Tasks
             </p>
           </div>
-          <div className="bg-indigo-400 p-2 md:p-4 rounded-md">
+          <div
+            onClick={handleComplete}
+            className="bg-indigo-400 p-2 md:p-4 rounded-md cursor-pointer"
+          >
             <h4 className="text-xs md:text-xl mb-3">Completed</h4>
             <p>
               <span className="text-sm md:text-4xl">

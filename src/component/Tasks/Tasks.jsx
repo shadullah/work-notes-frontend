@@ -6,12 +6,17 @@ import Tips from "../Tips/Tips";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import KeenSlider from "../Home/Home/Infomation/KeenSlider";
 import { BiSearchAlt2 } from "react-icons/bi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Tasks = () => {
   const [tasks] = useTasks();
   const [searchQ, setSearchQ] = useState("");
   const [filteredTasks, setFilteredTasks] = useState([]);
+  const [showComplete, setShowComplete] = useState(false);
+
+  // useEffect(() => {
+  //   filterTasks(searchQ);
+  // }, [searchQ, showComplete]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -19,6 +24,44 @@ const Tasks = () => {
     console.log(searchInput);
     setSearchQ(searchInput);
     filterTasks(searchInput);
+  };
+
+  // const filterTasks = (searchInput) => {
+  //   if (!searchInput) {
+  //     const filtered = showComplete
+  //       ? tasks.filter((task) => task.completed)
+  //       : tasks.filter((task) => !task.completed);
+  //     setFilteredTasks(filtered);
+  //   } else {
+  //     const filtered = tasks.filter(
+  //       (task) =>
+  //         (task.title.toLowerCase().includes(searchInput) ||
+  //           task.description.toLowerCase().includes(searchInput)) &&
+  //         (showComplete ? task.completed : !task.completed)
+  //     );
+  //     setFilteredTasks(filtered);
+  //   }
+  // };
+
+  // const filterTasks = (searchInput) => {
+  //   if (!searchInput) {
+  //     const filtered = showComplete
+  //       ? tasks.filter((task) => task.completed)
+  //       : tasks.filter((task) => !task.completed);
+  //     setFilteredTasks(filtered);
+  //   } else {
+  //     const filtered = tasks.filter(
+  //       (task) =>
+  //         (task.title.toLowerCase().includes(searchInput) ||
+  //           task.description.toLowerCase().includes(searchInput)) &&
+  //         (showComplete ? task.completed : !task.completed)
+  //     );
+  //     setFilteredTasks(filtered);
+  //   }
+  // };
+
+  const handleComplete = () => {
+    setShowComplete((prevShowComplete) => !prevShowComplete); // Toggle showComplete state
   };
 
   const filterTasks = (searchInput) => {
@@ -34,8 +77,31 @@ const Tasks = () => {
     setFilteredTasks(filtered);
   };
 
+  // const filterComplete = () => {
+  //   if (showComplete) {
+  //     return tasks.filter((task) => task.completed);
+  //   } else {
+  //     return tasks.filter((task) => !task.completed);
+  //   }
+  // };
+
+  // const handleComplete = () => {
+  //   setShowComplete(true);
+  // };
+
+  // const handleComplete = (completeness) => {
+  //   console.log("clickde");
+  //   setShowComplete(completeness);
+  //   setFilteredTasks(completeness);
+  // };
+
   return (
     <>
+      <div>
+        <div onClick={handleComplete} className="completed">
+          <button>Complete</button>
+        </div>
+      </div>
       <div className="bg-gray-800 text-white px-6 md:px-12 pt-3 pb-12">
         {tasks.length !== 0 || filteredTasks.length !== 0 ? (
           <>
@@ -43,7 +109,10 @@ const Tasks = () => {
               <div className="w-full">
                 <div className="block md:flex">
                   <div className="w-full md:w-1/2">
-                    <Infomation />{" "}
+                    <Infomation
+                    // setFilteredTasks={setFilteredTasks}
+                    // handleComplete={filterComplete}
+                    />{" "}
                   </div>
                   <div className="w-full md:w-1/2">
                     <KeenSlider />{" "}
@@ -173,6 +242,9 @@ const Tasks = () => {
                       </div>
                     </>
                   )}
+                  {/* {filterComplete().map((task, index) => {
+                    <SingleTask key={index} task={task} />;
+                  })} */}
                 </div>
               </div>
               <div className="w-full md:w-1/3 text-white">

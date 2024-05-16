@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import NavNext from "../component/Shared/Navbar/NavNext";
+import Footer from "../component/Shared/Footer/Footer";
 // import Navbar from "../pages/Shared/Navbar/Navbar";
 
 const Main = () => {
@@ -15,7 +16,7 @@ const Main = () => {
       {noHeaderFooter || <NavNext />}
       {/* {noHeaderFooter || <Navbar></Navbar>} */}
       <Outlet></Outlet>
-      {/* {noHeaderFooter || <Footer></Footer>} */}
+      {noHeaderFooter || <Footer></Footer>}
     </div>
   );
 };

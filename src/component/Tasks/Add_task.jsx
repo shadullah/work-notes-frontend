@@ -72,7 +72,7 @@ const Add_task = () => {
   };
 
   return (
-    <div className="">
+    <div className="mb-10">
       <h1 className="text-center text-3xl my-6 md:my-12 font-bold">Add Note</h1>
       <div className="w-full md:w-1/3 mx-auto">
         <form onSubmit={handleSubmit} className="mx-4 md:mx-14 py-6 md:py-16">

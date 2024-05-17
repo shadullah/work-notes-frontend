@@ -30,7 +30,7 @@ const Update_task = () => {
   useEffect(() => {
     const getTask = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/api/${id}/`);
+        const res = await axios.get(`http://localhost:8000/todo/list/${id}/`);
         console.log(res.data.priority);
         setTitle(res.data?.title);
         setDes(res.data?.description);
@@ -59,7 +59,7 @@ const Update_task = () => {
 
     try {
       await axios.put(
-        `http://localhost:8000/api/${id}/`,
+        `http://localhost:8000/todo/list/${id}/`,
         {
           title: title,
           description: description,

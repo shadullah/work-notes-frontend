@@ -15,7 +15,7 @@ const TaskDetails = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/${id}/`);
+      await axios.delete(`http://127.0.0.1:8000/todo/list/${id}/`);
       navigate("/");
       toast.success("Task Deleted Successfully", { duration: 6000 });
     } catch (err) {
@@ -28,7 +28,7 @@ const TaskDetails = () => {
   useEffect(() => {
     const getTask = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/api/${id}/`);
+        const res = await axios.get(`http://localhost:8000/todo/list/${id}/`);
         console.log(res.data);
         setTask(res.data);
       } catch (err) {

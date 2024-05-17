@@ -7,7 +7,7 @@ const useTasks = () => {
   useEffect(() => {
     const getTasks = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/");
+        const res = await axios.get("http://localhost:8000/todo/list/");
         console.log(res.data);
         setTasks(res.data);
       } catch (err) {

@@ -97,11 +97,11 @@ const Tasks = () => {
 
   return (
     <>
-      <div>
+      {/* <div>
         <div onClick={handleComplete} className="completed">
           <button>Complete</button>
         </div>
-      </div>
+      </div> */}
       <div className="bg-gray-800 text-white px-6 md:px-12 pt-3 pb-12">
         {tasks.length !== 0 || filteredTasks.length !== 0 ? (
           <>

@@ -60,9 +60,9 @@ const Tasks = () => {
   //   }
   // };
 
-  const handleComplete = () => {
-    setShowComplete((prevShowComplete) => !prevShowComplete); // Toggle showComplete state
-  };
+  // const handleComplete = () => {
+  //   setShowComplete((prevShowComplete) => !prevShowComplete); // Toggle showComplete state
+  // };
 
   const filterTasks = (searchInput) => {
     if (!searchInput) {

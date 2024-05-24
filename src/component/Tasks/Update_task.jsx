@@ -30,7 +30,11 @@ const Update_task = () => {
   useEffect(() => {
     const getTask = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/todo/list/${id}/`);
+        const res = await axios.get(`http://localhost:8000/todo/list/${id}/`, {
+          headers: {
+            Authorization: `token ${localStorage.getItem("token")}`,
+          },
+        });
         console.log(res.data.priority);
         setTitle(res.data?.title);
         setDes(res.data?.description);

@@ -15,7 +15,11 @@ const TaskDetails = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/todo/list/${id}/`);
+      await axios.delete(`http://127.0.0.1:8000/todo/list/${id}/`, {
+        headers: {
+          Authorization: `token ${localStorage.getItem("token")}`,
+        },
+      });
       navigate("/");
       toast.success("Task Deleted Successfully", { duration: 6000 });
     } catch (err) {

@@ -5,7 +5,6 @@ import { LuListTodo } from "react-icons/lu";
 import { MdLogout } from "react-icons/md";
 import { RxAvatar } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
-import useUsers from "../../../hooks/useUsers";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa";
 
@@ -19,7 +18,6 @@ const NavNext = () => {
   };
 
   const navigate = useNavigate();
-  const [users1] = useUsers();
 
   const handleLogout = async () => {
     try {
@@ -95,7 +93,7 @@ const NavNext = () => {
                       <div className="flex items-center">
                         <RxAvatar className="text-3xl mr-3" />
                         <div>
-                          <p className="text-xl italic">{users1.username}</p>
+                          {/* <p className="text-xl italic">{users1.username}</p> */}
                         </div>
                       </div>
                     </Link>
@@ -195,7 +193,7 @@ const NavNext = () => {
                       <div className="flex items-center">
                         <RxAvatar className="text-3xl mr-3" />
                         <div>
-                          <p className="text-xl italic">{users1.username}</p>
+                          {/* <p className="text-xl italic">{users1.username}</p> */}
                         </div>
                       </div>
                     </Link>

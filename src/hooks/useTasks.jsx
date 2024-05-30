@@ -5,12 +5,13 @@ const useTasks = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const urls = [
-    "http://localhost:8000/todo/list/",
     "https://work-notes-server.onrender.com/todo/list/",
+    "http://localhost:8000/todo/list/",
   ];
 
   useEffect(() => {
     const getTasks = async () => {
+      let fetchedData = [];
       for (const url of urls) {
         try {
           const res = await axios.get(url, {
@@ -19,13 +20,14 @@ const useTasks = () => {
             // },
           });
           console.log(res.data);
-          setTasks(res.data);
+          fetchedData = res.data;
+          break;
         } catch (err) {
           console.log(err);
-        } finally {
-          setLoading(false);
         }
       }
+      setTasks(fetchedData);
+      setLoading(false);
     };
     getTasks();
   }, []);

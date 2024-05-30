@@ -9,7 +9,7 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { useEffect, useState } from "react";
 
 const Tasks = () => {
-  const [tasks] = useTasks();
+  const [tasks, loading] = useTasks();
   const [searchQ, setSearchQ] = useState("");
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [showComplete, setShowComplete] = useState(false);
@@ -103,7 +103,7 @@ const Tasks = () => {
         </div>
       </div> */}
       <div className="bg-gray-800 text-white px-6 md:px-12 pt-3 pb-12">
-        {tasks.length !== 0 || filteredTasks.length !== 0 ? (
+        {tasks?.length !== 0 || filteredTasks?.length !== 0 ? (
           <>
             <div className="block md:flex justify-between">
               <div className="w-full">

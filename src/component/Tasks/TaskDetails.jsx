@@ -12,31 +12,39 @@ const TaskDetails = () => {
   const [task, setTask] = useState([]);
   const navigate = useNavigate();
   const user_id = localStorage.getItem("userId");
+  const urls = [
+    `http://127.0.0.1:8000/todo/list/${id}/`,
+    `https://work-notes-server.onrender.com/todo/list/${id}`,
+  ];
 
   const handleDelete = async () => {
-    try {
-      await axios.delete(`http://127.0.0.1:8000/todo/list/${id}/`, {
-        headers: {
-          Authorization: `token ${localStorage.getItem("token")}`,
-        },
-      });
-      navigate("/");
-      toast.success("Task Deleted Successfully", { duration: 6000 });
-    } catch (err) {
-      toast.error("Task not deleted", { duration: 6000 });
+    for (const url of urls) {
+      try {
+        await axios.delete(url, {
+          headers: {
+            Authorization: `token ${localStorage.getItem("token")}`,
+          },
+        });
+        navigate("/");
+        toast.success("Task Deleted Successfully", { duration: 6000 });
+      } catch (err) {
+        toast.error("Task not deleted", { duration: 6000 });
 
-      console.log(err);
+        console.log(err);
+      }
     }
   };
 
   useEffect(() => {
     const getTask = async () => {
-      try {
-        const res = await axios.get(`http://localhost:8000/todo/list/${id}/`);
-        console.log(res.data);
-        setTask(res.data);
-      } catch (err) {
-        console.log(err);
+      for (const url of urls) {
+        try {
+          const res = await axios.get(url);
+          console.log(res.data);
+          setTask(res.data);
+        } catch (err) {
+          console.log(err);
+        }
       }
     };
     getTask();

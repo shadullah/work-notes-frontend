@@ -105,7 +105,7 @@ const Tasks = () => {
       <div className="bg-gray-800 text-white px-6 md:px-12 pt-3 pb-12">
         {tasks?.length !== 0 || filteredTasks?.length !== 0 ? (
           <>
-            <div className="block md:flex justify-between">
+            <div className="flex md:flex-row flex-col-reverse justify-between">
               <div className="w-full">
                 <div className="block md:flex">
                   <div className="w-full md:w-1/2">

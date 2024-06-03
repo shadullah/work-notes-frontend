@@ -11,7 +11,7 @@ const useTasks = () => {
 
   useEffect(() => {
     const getTasks = async () => {
-      let fetchedData = [];
+      // let fetchedData = [];
       for (const url of urls) {
         try {
           const res = await axios.get(url, {
@@ -20,18 +20,21 @@ const useTasks = () => {
             // },
           });
           console.log(res.data);
-          fetchedData = res.data;
-          break;
+          // fetchedData = res.data;
+          // break;
+          setTasks(res.data);
         } catch (err) {
           console.log(err);
+        } finally {
+          setLoading(false);
         }
       }
-      setTasks(fetchedData);
-      setLoading(false);
+      // setTasks(fetchedData);
+      // setLoading(false);
     };
     getTasks();
   }, []);
-  return [tasks, setTasks, loading];
+  return [tasks, loading];
 };
 
 export default useTasks;

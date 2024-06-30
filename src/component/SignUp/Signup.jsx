@@ -42,11 +42,12 @@ const Signup = () => {
 
       if (response.status === 201) {
         console.log("Registration successful", response.data);
+        toast.success("Registration done,Please Login now");
         history.push("/");
       } else {
         reset();
         navigate("/login");
-        toast.success(response.data, { duration: 4000 });
+        toast.error(response.data, { duration: 4000 });
         console.error("Registration failed", response.data);
       }
     } catch (error) {

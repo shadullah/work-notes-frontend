@@ -40,13 +40,16 @@ const Signup = () => {
       );
       const response = await Promise.any(requests);
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         console.log("Registration successful", response.data);
-        toast.success("Registration done,Please Login now");
-        history.push("/");
+        toast.success("Registration done,Please Login now", response.data, {
+          duration: 3000,
+        });
+        // history.push("/");
+        navigate("/login");
       } else {
         reset();
-        navigate("/login");
+        // navigate("/login");
         toast.error(response.data, { duration: 4000 });
         console.error("Registration failed", response.data);
       }

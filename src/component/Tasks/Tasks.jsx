@@ -38,6 +38,7 @@ const Tasks = () => {
 
   // priority fetching start
   const [priority, setPriority] = useState("regular");
+
   const fetchPrio = async (priority) => {
     try {
       const res = await fetch(

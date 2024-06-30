@@ -12,7 +12,10 @@ const NavNext = () => {
   const [nav, setNav] = useState(false);
   //   const [clr, setClr] = useState("transparent");
   //   const [txtclr, setTxtclr] = useState("white");
-
+  const urls = [
+    "https://work-notes-server.onrender.com/todo/logout/",
+    "http://localhost:8000/todo/logout/",
+  ];
   const handleNav = () => {
     setNav(!nav);
   };
@@ -21,11 +24,14 @@ const NavNext = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/todo/logout/", {
-        headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      });
+      const requests = urls.map((url) =>
+        axios.get(url, {
+          headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
+        })
+      );
+      const res = await Promise.any(requests);
       if (res.status == 200) {
         console.log("logout successfull");
         localStorage.removeItem("token");

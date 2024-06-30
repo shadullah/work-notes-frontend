@@ -5,19 +5,21 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const Add_task = () => {
-  // const user_id = localStorage.getItem("userId");
-
   const [priority, setPriority] = useState([]);
   const [user, setUser] = useState();
   const navigate = useNavigate();
+  const urls = [
+    "https://work-notes-server.onrender.com/todo/list/",
+    "http://localhost:8000/todo/list/",
+  ];
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/todo/priority_choice/`)
+    fetch(`https://work-notes-server.onrender.com/todo/priority_choice/`)
       .then((res) => res.json())
       .then((data) => setPriority(data));
 
     axios
-      .get("http://127.0.0.1:8000/todo/users/", {
+      .get("https://work-notes-server.onrender.com/todo/users/", {
         headers: {
           Authorization: `token ${localStorage.getItem("token")}`,
         },
@@ -37,37 +39,39 @@ const Add_task = () => {
     );
     console.log(title, description, priorityObj);
 
-    try {
-      await axios.post(
-        "http://127.0.0.1:8000/todo/list/",
-        {
-          user: user,
-          title: title,
-          description: description,
-          completed: false,
-          date: new Date().getTime(),
-          priority: [priorityObj.slug],
-        },
-        // {
-        //   user: 1,
-        //   title: "Complete assignment",
-        //   description: "Finish the project before the deadline",
-        //   priority: ["important"],
-        // },
-        {
-          headers: {
-            Authorization: `Token ${localStorage.getItem("token")}`,
+    for (const url of urls) {
+      try {
+        await axios.post(
+          url,
+          {
+            user: user,
+            title: title,
+            description: description,
+            completed: false,
+            date: new Date().getTime(),
+            priority: [priorityObj.slug],
           },
-        }
-      );
-      // setPriority(priorityArr);
-      // console.log(priority);
-      navigate("/");
-      toast.success("Task Added Successfully", { duration: 6000 });
-    } catch (error) {
-      toast.error("Task could not be added", { duration: 6000 });
+          // {
+          //   user: 1,
+          //   title: "Complete assignment",
+          //   description: "Finish the project before the deadline",
+          //   priority: ["important"],
+          // },
+          {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        // setPriority(priorityArr);
+        // console.log(priority);
+        navigate("/");
+        toast.success("Task Added Successfully", { duration: 6000 });
+      } catch (error) {
+        toast.error("Task could not be added", { duration: 6000 });
 
-      console.log("add post Failed", error);
+        console.log("add post Failed", error);
+      }
     }
   };
 

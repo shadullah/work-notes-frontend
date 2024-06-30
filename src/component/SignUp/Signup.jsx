@@ -42,7 +42,7 @@ const Signup = () => {
 
       if (response.status === 200) {
         console.log("Registration successful", response.data);
-        toast.success("Registration done,Please Login now", response.data, {
+        toast.success("Registration done, Please Login now", response.data, {
           duration: 3000,
         });
         // history.push("/");

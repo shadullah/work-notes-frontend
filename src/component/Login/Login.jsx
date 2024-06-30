@@ -6,6 +6,10 @@ import toast from "react-hot-toast";
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const urls = [
+    "https://work-notes-server.onrender.com/todo/login/",
+    "http://localhost:8000/todo/login/",
+  ];
 
   const from = location.state?.form?.pathname || "/";
 
@@ -16,10 +20,18 @@ const Login = () => {
     const password = form.password.value;
     // console.log(username, password);
     try {
-      const response = await axios.post("http://localhost:8000/todo/login/", {
-        username: username,
-        password: password,
-      });
+      const requests = urls.map((url) =>
+        axios.post(url, {
+          username: username,
+          password: password,
+        })
+      );
+      const response = await Promise.any(requests);
+
+      // await axios.post("http://localhost:8000/todo/login/", {
+      //   username: username,
+      //   password: password,
+      // });
       if (response.data?.token) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.user_id);

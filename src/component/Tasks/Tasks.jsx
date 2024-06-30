@@ -10,7 +10,7 @@ import { useState } from "react";
 import load from "../../assets/load2.gif";
 
 const Tasks = () => {
-  const [tasks, loading] = useTasks();
+  const [tasks, setTasks, loading] = useTasks();
   const [searchQ, setSearchQ] = useState("");
   const [filteredTasks, setFilteredTasks] = useState([]);
 
@@ -30,9 +30,29 @@ const Tasks = () => {
     const filtered = tasks.filter(
       (task) =>
         task.title.toLowerCase().includes(searchInput) ||
-        task.description.toLowerCase().includes(searchInput)
+        task.description.toLowerCase().includes(searchInput) ||
+        task.priority[0].toLowerCase().includes(searchInput)
     );
     setFilteredTasks(filtered);
+  };
+
+  // priority fetching start
+  const [priority, setPriority] = useState("regular");
+  const fetchPrio = async (priority) => {
+    try {
+      const res = await fetch(
+        `http://127.0.0.1:8000/todo/list/?search=${priority}`
+      );
+      const data = await res.json();
+      setTasks(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handlePrio = () => {
+    setPriority(priority);
+    fetchPrio(priority);
   };
 
   return (
@@ -54,13 +74,10 @@ const Tasks = () => {
               <div className="w-full">
                 <div className="block md:flex">
                   <div className="w-full md:w-1/2">
-                    <Infomation
-                    // setFilteredTasks={setFilteredTasks}
-                    // handleComplete={filterComplete}
-                    />{" "}
+                    <Infomation />
                   </div>
                   <div className="w-full md:w-1/2">
-                    <KeenSlider />{" "}
+                    <KeenSlider onPrioChange={handlePrio} />{" "}
                   </div>
                 </div>
 
@@ -187,9 +204,6 @@ const Tasks = () => {
                       </div>
                     </>
                   )}
-                  {/* {filterComplete().map((task, index) => {
-                    <SingleTask key={index} task={task} />;
-                  })} */}
                 </div>
               </div>
               <div className="w-full md:w-1/3 text-white">

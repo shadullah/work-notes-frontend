@@ -6,7 +6,7 @@ import { CiStickyNote } from "react-icons/ci";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import useTasks from "../../../../hooks/useTasks";
 
-const KeenSlider = () => {
+const KeenSlider = ({on}) => {
   const [tasks] = useTasks();
   const [sliderRef] = useKeenSlider({
     mode: "free-snap",

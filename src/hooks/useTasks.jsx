@@ -34,7 +34,7 @@ const useTasks = () => {
     };
     getTasks();
   }, []);
-  return [tasks, loading];
+  return [tasks, setTasks, loading];
 };
 
 export default useTasks;

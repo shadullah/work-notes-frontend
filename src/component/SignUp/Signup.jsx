@@ -10,6 +10,10 @@ import toast from "react-hot-toast";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const urls = [
+    "https://work-notes-server.onrender.com/todo/register/",
+    "http://localhost:8000/todo/register/",
+  ];
 
   const {
     register,
@@ -24,18 +28,17 @@ const Signup = () => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const response = await axios.post(
-        "http://localhost:8000/todo/register/",
-        {
+      const requests = urls.map((url) =>
+        axios.post(url, {
           username: data.username,
           first_name: data.first_name,
           last_name: data.last_name,
           email: data.email,
           password: data.password,
           confirm_password: data.confirm_password,
-        }
+        })
       );
-      // toast.loading("Wait for server response");
+      const response = await Promise.any(requests);
 
       if (response.status === 201) {
         console.log("Registration successful", response.data);

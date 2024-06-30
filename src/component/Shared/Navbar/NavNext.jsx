@@ -7,6 +7,7 @@ import { RxAvatar } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const NavNext = () => {
   const [nav, setNav] = useState(false);
@@ -37,6 +38,7 @@ const NavNext = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
       }
+      toast.success("Logout Success");
     } catch (err) {
       console.log(err);
     }

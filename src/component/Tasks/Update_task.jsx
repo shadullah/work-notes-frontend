@@ -12,14 +12,18 @@ const Update_task = () => {
   const [des, setDes] = useState("");
   const [complete, setComplete] = useState(false);
   const [prior, setPrio] = useState("");
+  const urls = [
+    `https://work-notes-server.onrender.com/todo/list/${id}/`,
+    `http://localhost:8000/todo/list/${id}/`,
+  ];
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/todo/priority_choice/`)
+    fetch(`https://work-notes-server.onrender.com/todo/priority_choice/`)
       .then((res) => res.json())
       .then((data) => setPriority(data));
 
     axios
-      .get("http://127.0.0.1:8000/todo/users/", {
+      .get("https://work-notes-server.onrender.com/todo/users/", {
         headers: {
           Authorization: `token ${localStorage.getItem("token")}`,
         },
@@ -30,11 +34,14 @@ const Update_task = () => {
   useEffect(() => {
     const getTask = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/todo/list/${id}/`, {
-          headers: {
-            Authorization: `token ${localStorage.getItem("token")}`,
-          },
-        });
+        const requests = urls.map((url) =>
+          axios.get(url, {
+            headers: {
+              Authorization: `token ${localStorage.getItem("token")}`,
+            },
+          })
+        );
+        const res = await Promise.any(requests);
         console.log(res.data.priority);
         setTitle(res.data?.title);
         setDes(res.data?.description);
@@ -63,7 +70,7 @@ const Update_task = () => {
 
     try {
       await axios.put(
-        `http://localhost:8000/todo/list/${id}/`,
+        `https://work-notes-server.onrender.com/todo/list/${id}/`,
         {
           title: title,
           description: description,

@@ -10,7 +10,7 @@ import { useState } from "react";
 import load from "../../assets/load2.gif";
 
 const Tasks = () => {
-  const [tasks, setQuery, loading] = useTasks();
+  const [tasks, setTasks, setQuery, loading] = useTasks();
   const [searchQ, setSearchQ] = useState("");
   const [filteredTasks, setFilteredTasks] = useState([]);
 

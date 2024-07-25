@@ -12,10 +12,10 @@ const Update_task = () => {
   const [des, setDes] = useState("");
   const [complete, setComplete] = useState(false);
   const [prior, setPrio] = useState("");
-  const urls = [
-    `https://work-notes-server.onrender.com/todo/list/${id}/`,
-    `http://localhost:8000/todo/list/${id}/`,
-  ];
+  // const urls = [
+  //   `https://work-notes-server.onrender.com/todo/list/${id}/`,
+  //   `http://localhost:8000/todo/list/${id}/`,
+  // ];
 
   useEffect(() => {
     fetch(`https://work-notes-server.onrender.com/todo/priority_choice/`)
@@ -35,12 +35,13 @@ const Update_task = () => {
   useEffect(() => {
     const getTask = async () => {
       try {
-        const requests = urls.map((url) =>
-          axios.get(url, {
+        const requests = axios.get(
+          `https://work-notes-server.onrender.com/todo/list/${id}/`,
+          {
             headers: {
               Authorization: `token ${localStorage.getItem("token")}`,
             },
-          })
+          }
         );
         console.log(localStorage.getItem("token"));
         const res = await Promise.any(requests);

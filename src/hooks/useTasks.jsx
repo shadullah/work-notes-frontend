@@ -33,7 +33,7 @@ const useTasks = () => {
       // setLoading(false);
     };
     getTasks();
-  }, [query, urls]);
+  }, [query]);
 
   return [tasks, setTasks, setQuery, loading];
 };

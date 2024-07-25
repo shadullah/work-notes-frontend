@@ -6,10 +6,12 @@ import { ImPower } from "react-icons/im";
 import { MdOutlineDelete } from "react-icons/md";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import load from "../../assets/load2.gif";
 
 const TaskDetails = () => {
   const { id } = useParams();
   const [task, setTask] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const user_id = localStorage.getItem("userId");
   const urls = [
@@ -44,6 +46,8 @@ const TaskDetails = () => {
           setTask(res.data);
         } catch (err) {
           console.log(err);
+        } finally {
+          setLoading(false);
         }
       }
     };
@@ -55,77 +59,94 @@ const TaskDetails = () => {
       <div className="">
         <h1 className="text-center text-3xl font-bold py-12">Task Details</h1>
 
-        <div className="my-3 md:my-12 px-6 md:px-12">
-          <p className="flex">
-            Priority:
-            <span className="ml-2">
-              {task.priority && task.priority.length > 0 ? (
-                task.priority[0] == "urgent" ? (
-                  <span className="text-orange-400 uppercase flex items-center">
-                    {task.priority[0]}{" "}
-                    <span className="ml-2">
-                      <FaTemperatureArrowUp />
-                    </span>
-                  </span>
-                ) : task.priority[0] == "important" ? (
-                  <span className="text-orange-400 flex items-center">
-                    {task.priority[0]}{" "}
-                    <span className="ml-2">
-                      <ImPower />
-                    </span>
-                  </span>
+        {loading ? (
+          <>
+            <div>
+              <img
+                className="mx-auto mix-blend-multiply my-32"
+                src={load}
+                alt=""
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="my-3 md:my-12 px-6 md:px-12">
+              <p className="flex">
+                Priority:
+                <span className="ml-2">
+                  {task.priority && task.priority.length > 0 ? (
+                    task.priority[0] == "urgent" ? (
+                      <span className="text-orange-400 uppercase flex items-center">
+                        {task.priority[0]}{" "}
+                        <span className="ml-2">
+                          <FaTemperatureArrowUp />
+                        </span>
+                      </span>
+                    ) : task.priority[0] == "important" ? (
+                      <span className="text-orange-400 flex items-center">
+                        {task.priority[0]}{" "}
+                        <span className="ml-2">
+                          <ImPower />
+                        </span>
+                      </span>
+                    ) : (
+                      <>
+                        <span className="text-lime-300">
+                          {task.priority[0]}
+                        </span>
+                      </>
+                    )
+                  ) : (
+                    <span>No Priorirty Found</span>
+                  )}
+                </span>
+              </p>
+              <h1 className="text-2xl md:text-5xl font-extrabold text-justify my-6">
+                {task.title}
+              </h1>
+              <p>
+                Author:{" "}
+                <span className="uppercase">{task?.user?.username}</span>{" "}
+              </p>
+              <p>Posted Date: {task.date}</p>
+
+              <p className="text-sm md:text-2xl my-12">{task.description}</p>
+              <p className="mb-6">
+                Status:{" "}
+                {task.completed ? (
+                  <>
+                    <span className="text-green-400">Completed</span>
+                  </>
                 ) : (
                   <>
-                    <span className="text-lime-300">{task.priority[0]}</span>
+                    <span className="text-red-600">Not Completed</span>
                   </>
-                )
+                )}
+              </p>
+              {user_id == task.user?.id ? (
+                <>
+                  <div className="my-6 flex items-center">
+                    <button
+                      onClick={handleDelete}
+                      className="text-2xl mx-3 flex items-center px-3 py-2 bg-red-600 rounded-lg"
+                    >
+                      <MdOutlineDelete />
+                      <span className="text-xl ml-3">Delete</span>
+                    </button>
+                    <Link to={`/${task.id}/update`}>
+                      <button className="text-2xl mx-3 flex items-center px-3 py-2 bg-cyan-400 rounded-lg">
+                        <FaEdit /> <span className="text-xl ml-3">Edit</span>
+                      </button>
+                    </Link>
+                  </div>
+                </>
               ) : (
-                <span>No Priorirty Found</span>
+                <></>
               )}
-            </span>
-          </p>
-          <h1 className="text-2xl md:text-5xl font-extrabold text-justify my-6">
-            {task.title}
-          </h1>
-          <p>
-            Author: <span className="uppercase">{task?.user?.username}</span>{" "}
-          </p>
-          <p>Posted Date: {task.date}</p>
-
-          <p className="text-sm md:text-2xl my-12">{task.description}</p>
-          <p className="mb-6">
-            Status:{" "}
-            {task.completed ? (
-              <>
-                <span className="text-green-400">Completed</span>
-              </>
-            ) : (
-              <>
-                <span className="text-red-600">Not Completed</span>
-              </>
-            )}
-          </p>
-          {user_id == task.user?.id ? (
-            <>
-              <div className="my-6 flex items-center">
-                <button
-                  onClick={handleDelete}
-                  className="text-2xl mx-3 flex items-center px-3 py-2 bg-red-600 rounded-lg"
-                >
-                  <MdOutlineDelete />
-                  <span className="text-xl ml-3">Delete</span>
-                </button>
-                <Link to={`/${task.id}/update`}>
-                  <button className="text-2xl mx-3 flex items-center px-3 py-2 bg-cyan-400 rounded-lg">
-                    <FaEdit /> <span className="text-xl ml-3">Edit</span>
-                  </button>
-                </Link>
-              </div>
-            </>
-          ) : (
-            <></>
-          )}
-        </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

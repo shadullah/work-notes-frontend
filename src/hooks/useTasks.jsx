@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 const useTasks = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("");
   const urls = [
     "https://work-notes-server.onrender.com/todo/list/",
     "http://localhost:8000/todo/list/",
@@ -14,14 +15,13 @@ const useTasks = () => {
       // let fetchedData = [];
       for (const url of urls) {
         try {
-          const res = await axios.get(url, {
+          const endpoint = query ? `${url}?search=${query}` : url;
+          const res = await axios.get(endpoint, {
             // headers: {
             //   Authorization: `token ${localStorage.getItem("token")}`,
             // },
           });
           console.log(res.data);
-          // fetchedData = res.data;
-          // break;
           setTasks(res.data);
         } catch (err) {
           console.log(err);
@@ -33,8 +33,9 @@ const useTasks = () => {
       // setLoading(false);
     };
     getTasks();
-  }, []);
-  return [tasks, setTasks, loading];
+  }, [query]);
+
+  return [tasks, setTasks, setQuery, loading];
 };
 
 export default useTasks;

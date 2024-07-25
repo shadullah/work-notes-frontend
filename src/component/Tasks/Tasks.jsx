@@ -10,7 +10,7 @@ import { useState } from "react";
 import load from "../../assets/load2.gif";
 
 const Tasks = () => {
-  const [tasks, setTasks, loading] = useTasks();
+  const [tasks, setQuery, loading] = useTasks();
   const [searchQ, setSearchQ] = useState("");
   const [filteredTasks, setFilteredTasks] = useState([]);
 
@@ -36,25 +36,25 @@ const Tasks = () => {
     setFilteredTasks(filtered);
   };
 
-  // priority fetching start
-  const [priority, setPriority] = useState("regular");
+  // // priority fetching start
+  // const [priority, setPriority] = useState("regular");
 
-  const fetchPrio = async (priority) => {
-    try {
-      const res = await fetch(
-        `http://127.0.0.1:8000/todo/list/?search=${priority}`
-      );
-      const data = await res.json();
-      setTasks(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const fetchPrio = async (priority) => {
+  //   try {
+  //     const res = await fetch(
+  //       `http://127.0.0.1:8000/todo/list/?search=${priority}`
+  //     );
+  //     const data = await res.json();
+  //     setTasks(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const handlePrio = () => {
-    setPriority(priority);
-    fetchPrio(priority);
-  };
+  // const handlePrio = () => {
+  //   setPriority(priority);
+  //   fetchPrio(priority);
+  // };
 
   return (
     <>
@@ -78,7 +78,7 @@ const Tasks = () => {
                     <Infomation />
                   </div>
                   <div className="w-full md:w-1/2">
-                    <KeenSlider onPrioChange={handlePrio} />{" "}
+                    <KeenSlider setQuery={setQuery} />{" "}
                   </div>
                 </div>
 
@@ -129,11 +129,17 @@ const Tasks = () => {
                           <h1 className="bg-gray-800 font-bold p-3 rounded-full text-red-400">
                             Urgent{" "}
                             <span className="bg-red-400 text-white p-2 rounded-full">
-                              {
-                                tasks?.filter(
-                                  (task) => task?.priority[0] === "urgent"
-                                ).length
-                              }
+                              {loading ? (
+                                <>Loading....</>
+                              ) : (
+                                <>
+                                  {
+                                    tasks?.filter(
+                                      (task) => task?.priority[0] === "urgent"
+                                    ).length
+                                  }
+                                </>
+                              )}
                             </span>
                           </h1>
                           <p>

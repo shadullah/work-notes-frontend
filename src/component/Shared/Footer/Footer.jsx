@@ -5,7 +5,7 @@ const Footer = () => {
         All &copy; Copyright reserved by{" "}
         <a
           className="underline text-blue-600"
-          href="https://shad-portfolio.web.app/"
+          href="https://shadullah.vercel.app/"
         >
           Shad Ullah
         </a>

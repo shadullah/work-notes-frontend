@@ -35,7 +35,7 @@ const Update_task = () => {
   useEffect(() => {
     const getTask = async () => {
       try {
-        const requests = axios.get(
+        const res = axios.get(
           `https://work-notes-server.onrender.com/todo/list/${id}/`,
           {
             headers: {
@@ -44,7 +44,7 @@ const Update_task = () => {
           }
         );
         console.log(localStorage.getItem("token"));
-        const res = await Promise.any(requests);
+        // const res = await Promise.any(requests);
         console.log(res.data.priority);
         setTitle(res.data?.title);
         setDes(res.data?.description);

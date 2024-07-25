@@ -33,9 +33,9 @@ const useTasks = () => {
       // setLoading(false);
     };
     getTasks();
-  }, [query]);
+  }, [query, urls]);
 
-  return [tasks, setTasks, setQuery, loading];
+  return [tasks, setQuery, loading];
 };
 
 export default useTasks;

@@ -35,7 +35,7 @@ const Update_task = () => {
   useEffect(() => {
     const getTask = async () => {
       try {
-        const res = axios.get(
+        const res = await axios.get(
           `https://work-notes-server.onrender.com/todo/list/${id}/`,
           {
             headers: {

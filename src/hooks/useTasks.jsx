@@ -35,7 +35,7 @@ const useTasks = () => {
     getTasks();
   }, [query, urls]);
 
-  return [tasks, setQuery, loading];
+  return [tasks, setTasks, setQuery, loading];
 };
 
 export default useTasks;

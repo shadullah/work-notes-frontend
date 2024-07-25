@@ -2,6 +2,14 @@
 
 Work Note is an task managing website which is built using React, JavaScript, Tailwind Css, Django-rest-framework, Django, React-icons and many more to go. I will try continously update this project.
 
+## Backend github link
+
+Watch backend code demo here:
+
+```bash
+https://github.com/shadullah/work-notes-server
+```
+
 ## Live Demo
 
 Watch Live demo here:

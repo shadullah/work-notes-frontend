@@ -29,6 +29,7 @@ const Update_task = () => {
         },
       })
       .then((res) => setUser(res.data));
+    console.log(localStorage.getItem("token"));
   }, []);
 
   useEffect(() => {
@@ -41,6 +42,7 @@ const Update_task = () => {
             },
           })
         );
+        console.log(localStorage.getItem("token"));
         const res = await Promise.any(requests);
         console.log(res.data.priority);
         setTitle(res.data?.title);
@@ -85,6 +87,7 @@ const Update_task = () => {
           },
         }
       );
+      console.log(localStorage.getItem("token"));
       navigate(`/`);
       toast.success("Task Updated Successfully", { duration: 6000 });
     } catch (err) {

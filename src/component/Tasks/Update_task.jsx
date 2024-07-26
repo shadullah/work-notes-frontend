@@ -14,7 +14,7 @@ const Update_task = () => {
   const [prior, setPrio] = useState("");
   const urls = [
     `https://work-notes-server.onrender.com/todo/list/${id}/`,
-    `http://localhost:8000/todo/list/${id}/`,
+    // `http://localhost:8000/todo/list/${id}/`,
   ];
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const Update_task = () => {
         },
         {
           headers: {
-            Authorization: `Token ${localStorage.getItem("token")}`,
+            Authorization: `token ${localStorage.getItem("token")}`,
           },
         }
       );

@@ -6,7 +6,7 @@ const useUsers = () => {
   const [users1, setusers1] = useState([]);
   const [loading, setLoading] = useState(true);
   const urls = [
-    `https://work-notes-server.onrender.com/todo/${user_id}/`,
+    `https://work-notes-server.onrender.com/todo/users/${user_id}/`,
     `http://127.0.0.1:8000/todo/users/${user_id}/`,
   ];
 

@@ -36,26 +36,6 @@ const Tasks = () => {
     setFilteredTasks(filtered);
   };
 
-  // // priority fetching start
-  // const [priority, setPriority] = useState("regular");
-
-  // const fetchPrio = async (priority) => {
-  //   try {
-  //     const res = await fetch(
-  //       `http://127.0.0.1:8000/todo/list/?search=${priority}`
-  //     );
-  //     const data = await res.json();
-  //     setTasks(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // const handlePrio = () => {
-  //   setPriority(priority);
-  //   fetchPrio(priority);
-  // };
-
   return (
     <>
       <div className="bg-gray-800 text-white px-6 md:px-12 pt-3 pb-12">

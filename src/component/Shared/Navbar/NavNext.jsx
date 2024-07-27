@@ -70,7 +70,7 @@ const NavNext = () => {
       >
         <div className="m-auto flex justify-between items-center py-4 px-6 md:px-12 text-white">
           <div>
-            <Link href="/">
+            <Link onClick={() => window.location.reload()} href="/">
               <span className="text-2xl flex items-center text-white font-bold">
                 <LuListTodo />
                 <h1 className="ml-3">Work Notes</h1>

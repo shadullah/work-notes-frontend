@@ -32,7 +32,7 @@ const Tips = ({ setCompleted }) => {
       >
         <SwiperSlide className=" bg-gray-600/60 rounded-lg">
           <img
-            className="rounded-t-lg h-64 w-64 md:h-64 md:w-80"
+            className="rounded-t-lg h-64 w-72 md:h-64 md:w-80"
             src={laptop}
             alt=""
           />
@@ -46,7 +46,7 @@ const Tips = ({ setCompleted }) => {
         </SwiperSlide>
         <SwiperSlide className=" bg-gray-600/60 rounded-lg">
           <img
-            className="rounded-t-lg h-64 w-64 md:h-72 md:w-80 bg-transparent"
+            className="rounded-t-lg h-64 w-72 md:h-72 md:w-80 bg-transparent"
             src={logs}
             alt=""
           />
@@ -60,7 +60,7 @@ const Tips = ({ setCompleted }) => {
         </SwiperSlide>
         <SwiperSlide className=" bg-gray-600/60 rounded-lg">
           <img
-            className="rounded-t-lg h-64 w-64 md:h-64 md:w-80"
+            className="rounded-t-lg h-64 w-72 md:h-64 md:w-80"
             src={custom}
             alt=""
           />
@@ -76,17 +76,16 @@ const Tips = ({ setCompleted }) => {
 
       <div className="p-6">
         <h1 className="text-xl mb-6">Filter by:</h1>
-        <div className="block md:flex items-center justify-between">
+        <div className="block md:flex space-x-1 items-center justify-between">
           {/* <p className=`{hover: <RiCompass2Fill />}`>Completed</p>
            */}
           <button onClick={() => setCompleted("true")}>
-            <p className="bg-gray-600 px-2 py-2 rounded-lg my-2">
-              Completed{" "}
-              <IoMdCheckmarkCircle className="inline ml-2 text-green-600" />
+            <p className="bg-gray-600 flex items-center px-2 py-2 rounded-lg my-2">
+              Completed <IoMdCheckmarkCircle className="ml-2 text-green-600" />
             </p>
           </button>
           <button onClick={() => setCompleted("false")}>
-            <p className="bg-gray-600 px-2 py-2 rounded-lg my-2">
+            <p className="bg-gray-600 flex items-center px-2 py-2 rounded-lg my-2">
               Incompleted{" "}
               <IoMdCheckmarkCircleOutline className="inline ml-2 text-red-600" />
             </p>

@@ -37,7 +37,7 @@ const KeenSlider = ({ setQuery }) => {
               <h3 className="text-xl mr-3">Urgent Task</h3>
               <FaLongArrowAltRight />
             </div>
-            <p>{urgent} Tasks</p>
+            <p className="text-start">{urgent} Tasks</p>
           </button>
         </div>
         <div className="keen-slider__slide number-slide3 bg-gray-700 p-4 rounded-md border-gray-500 border-[1px]">
@@ -49,7 +49,7 @@ const KeenSlider = ({ setQuery }) => {
               <h3 className="text-xl mr-3">Important Task</h3>
               <FaLongArrowAltRight />
             </div>
-            <p>{important} Tasks</p>
+            <p className="text-start">{important} Tasks</p>
           </button>
         </div>
         <div className="keen-slider__slide number-slide3 bg-gray-700 p-4 rounded-md border-gray-500 border-[1px]">
@@ -61,7 +61,7 @@ const KeenSlider = ({ setQuery }) => {
               <h3 className="text-xl mr-3">Regular Task</h3>
               <FaLongArrowAltRight />
             </div>
-            <p>{regular} Tasks</p>
+            <p className="text-start">{regular} Tasks</p>
           </button>
         </div>
       </div>

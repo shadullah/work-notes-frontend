@@ -10,7 +10,7 @@ import { useState } from "react";
 import load from "../../assets/load2.gif";
 
 const Tasks = () => {
-  const [tasks, setTasks, setQuery, loading] = useTasks();
+  const [tasks, setTasks, setQuery, setCompleted, loading] = useTasks();
   const [searchQ, setSearchQ] = useState("");
   const [filteredTasks, setFilteredTasks] = useState([]);
 
@@ -215,7 +215,7 @@ const Tasks = () => {
               </div>
               <div className="w-full md:w-1/3 text-white">
                 <h2 className="text-2xl mb-6 ml-6">Tips</h2>
-                <Tips />
+                <Tips setCompleted={setCompleted} />
               </div>
             </div>
           </>

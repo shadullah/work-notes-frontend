@@ -13,30 +13,7 @@ import {
 } from "react-icons/io";
 // import useTasks from "../../hooks/useTasks";
 
-const Tips = () => {
-  // const [setSearchVal] = useState("");
-  // const [setTasks] = useTasks();
-
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   const searchInput = e.target.search.value;
-  //   console.log(searchInput);
-  //   fetchSearch(searchInput);
-  // };
-
-  // const fetchSearch = async (searchVal) => {
-  //   try {
-  //     const res = await fetch(
-  //       `http://127.0.0.1:8000/todo/list/?search=${searchVal}`
-  //     );
-  //     const data = res.json();
-  //     console.log(data);
-  //     setTasks(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
+const Tips = ({ setCompleted }) => {
   return (
     <div className="w-full md:w-80 mx-auto">
       <Swiper
@@ -102,14 +79,18 @@ const Tips = () => {
         <div className="block md:flex items-center justify-between">
           {/* <p className=`{hover: <RiCompass2Fill />}`>Completed</p>
            */}
-          <p className="bg-gray-600 px-2 py-2 rounded-lg my-2">
-            Completed{" "}
-            <IoMdCheckmarkCircle className="inline ml-2 text-green-600" />
-          </p>
-          <p className="bg-gray-600 px-2 py-2 rounded-lg my-2">
-            Incompleted{" "}
-            <IoMdCheckmarkCircleOutline className="inline ml-2 text-red-600" />
-          </p>
+          <button onClick={() => setCompleted("true")}>
+            <p className="bg-gray-600 px-2 py-2 rounded-lg my-2">
+              Completed{" "}
+              <IoMdCheckmarkCircle className="inline ml-2 text-green-600" />
+            </p>
+          </button>
+          <button onClick={() => setCompleted("false")}>
+            <p className="bg-gray-600 px-2 py-2 rounded-lg my-2">
+              Incompleted{" "}
+              <IoMdCheckmarkCircleOutline className="inline ml-2 text-red-600" />
+            </p>
+          </button>
         </div>
       </div>
     </div>

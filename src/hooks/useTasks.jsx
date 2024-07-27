@@ -5,6 +5,7 @@ const useTasks = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
+  const [completed, setCompleted] = useState("");
   const urls = [
     "https://work-notes-server.onrender.com/todo/list/",
     "http://localhost:8000/todo/list/",
@@ -15,7 +16,13 @@ const useTasks = () => {
       // let fetchedData = [];
       for (const url of urls) {
         try {
-          const endpoint = query ? `${url}?search=${query}` : url;
+          let endpoint = url;
+          if (query) {
+            endpoint = endpoint + `?search=${query}`;
+          } else if (completed) {
+            endpoint += `?completed=${completed}`;
+          }
+          // const endpoint = query ? `${url}?search=${query}` : url;
           const res = await axios.get(endpoint, {
             // headers: {
             //   Authorization: `token ${localStorage.getItem("token")}`,
@@ -33,9 +40,9 @@ const useTasks = () => {
       // setLoading(false);
     };
     getTasks();
-  }, [query]);
+  }, [query, completed]);
 
-  return [tasks, setTasks, setQuery, loading];
+  return [tasks, setTasks, setQuery, setCompleted, loading];
 };
 
 export default useTasks;

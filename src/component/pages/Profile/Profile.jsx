@@ -3,11 +3,14 @@ import useTasks from "../../../hooks/useTasks";
 import useUsers from "../../../hooks/useUsers";
 import CountUp from "react-countup";
 import { Audio } from "react-loader-spinner";
+import { useEffect, useState } from "react";
+import axios from "axios";
 // import { BsTextCenter } from "react-icons/bs";
 
 const Profile = () => {
   const [users1, loading] = useUsers();
   const [tasks] = useTasks();
+  const [pic, setPic] = useState(null);
 
   const completedtask = tasks.filter(
     (task) => task.completed && task.user.id == users1.id
@@ -17,11 +20,31 @@ const Profile = () => {
   ).length;
 
   //    direct korle cors issue dey
-  //   useEffect(() => {
-  //     fetch(`http://127.0.0.1:8000/todo/users/1`)
-  //       .then((res) => res.json())
-  //       .then((data) => console.log(data));
-  //   }, [user_id]);
+  // useEffect(() => {
+  //   fetch(`https://work-notes-server.onrender.com/todo/profiles/`)
+  //     .then((res) => res.json())
+  //     .then((data) => setPic(data));
+  // }, []);
+
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const res = await axios.get(
+          `https://work-notes-server.onrender.com/todo/profiles/`
+        );
+        const profiles = res.data;
+        const userProfile = profiles.find(
+          (profile) => profile.user === users1.id
+        );
+        if (userProfile) {
+          setPic(userProfile.img);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProfile();
+  }, [users1]);
 
   return (
     <div className="bg-gray-800 text-white">
@@ -42,7 +65,7 @@ const Profile = () => {
           <>
             <div className="bg-gray-700 w-full md:w-1/3 p-3 md:p-6 rounded-lg">
               <img
-                src=""
+                src={pic || ""}
                 className="h-44 md:h-64 w-full border-2 rounded-lg"
                 alt="#"
               />
@@ -100,20 +123,30 @@ const Profile = () => {
               <div>
                 <h1 className="text-3xl m-6">My Tasks</h1>
                 <div className="bg-gray-600 mx-3 md:mx-12 p-3 md:p-6 rounded-lg">
-                  {tasks
-                    .filter((task) => task.user.id == users1.id)
-                    .map((task) => (
-                      <>
-                        <div className="flex justify-between items-center m-3 p-2 bg-indigo-600 rounded-lg">
-                          <p className="font-bold">{task.title}</p>
-                          <Link to={`/${task.id}`}>
-                            <button className="bg-lime-600 p-2 rounded-md">
-                              View
-                            </button>
-                          </Link>
-                        </div>
-                      </>
-                    ))}
+                  {tasks.filter((task) => task.user.id == users1.id) != 0 ? (
+                    <>
+                      {tasks
+                        .filter((task) => task.user.id == users1.id)
+                        .map((task) => (
+                          <>
+                            <div className="flex justify-between items-center m-3 p-2 bg-indigo-600 rounded-lg">
+                              <p className="font-bold">{task.title}</p>
+                              <Link to={`/${task.id}`}>
+                                <button className="bg-lime-600 p-2 rounded-md">
+                                  View
+                                </button>
+                              </Link>
+                            </div>
+                          </>
+                        ))}
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-2xl font-bold">
+                        Hey, You have not added any notes yet.{" "}
+                      </p>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

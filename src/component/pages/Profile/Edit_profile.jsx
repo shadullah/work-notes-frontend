@@ -104,7 +104,7 @@ const Edit_profile = () => {
 
     try {
       await axios.put(
-        `http://127.0.0.1:8000/todo/profiles/${profileId}/`,
+        `https://work-notes-server.onrender.com/todo/profiles/${profileId}/`,
         {
           img: link,
           user: users1.id,

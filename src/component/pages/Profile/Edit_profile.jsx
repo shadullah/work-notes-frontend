@@ -14,8 +14,13 @@ const Edit_profile = () => {
   const [users1, loading] = useUsers();
   const [pic, setPic] = useState(null);
   const [load, setloading] = useState(true);
+  const [profileId, setProfileId] = useState(null);
 
   const navigate = useNavigate();
+  const urls = [
+    "https://work-notes-server.onrender.com/todo/profiles/",
+    "http://127.0.0.1:8000/todo/profiles/",
+  ];
 
   useEffect(() => {
     if (users1 && users1.username) {
@@ -29,26 +34,26 @@ const Edit_profile = () => {
 
   useEffect(() => {
     const getProfile = async () => {
-      try {
-        const res = await axios.get(
-          `https://work-notes-server.onrender.com/todo/profiles/`,
-          {
+      for (const url of urls) {
+        try {
+          const res = await axios.get(url, {
             headers: {
               Authorization: `token ${localStorage.getItem("token")}`,
             },
+          });
+          const profiles = res.data;
+          const userProfile = profiles.find(
+            (profile) => profile.user === users1.id
+          );
+          if (userProfile) {
+            setPic(userProfile.img);
+            setProfileId(userProfile.id);
           }
-        );
-        const profiles = res.data;
-        const userProfile = profiles.find(
-          (profile) => profile.user === users1.id
-        );
-        if (userProfile) {
-          setPic(userProfile.img);
+        } catch (err) {
+          console.log(err);
+        } finally {
+          setloading(false);
         }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setloading(false);
       }
     };
     getProfile();
@@ -89,6 +94,36 @@ const Edit_profile = () => {
     }
   };
 
+  const handleUrl = async (e) => {
+    e.preventDefault();
+    let link = e.target.url.value;
+
+    // if (!link.endsWith("/")) {
+    //   link += "/";
+    // }
+
+    try {
+      await axios.put(
+        `http://127.0.0.1:8000/todo/profiles/${profileId}/`,
+        {
+          img: link,
+          user: users1.id,
+        },
+        {
+          headers: {
+            Authorization: `token ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      toast.success("Url Saved", { duration: 3000 });
+      navigate(`/profile/${users1.id}`);
+    } catch (err) {
+      toast.error("Link couldn't be saved", { duration: 3000 });
+      console.log(err);
+      throw err;
+    }
+  };
+
   return (
     <div className="text-gray-200 h-screen bg-gray-800">
       <h1 className="text-center text-3xl py-6 md:py-12 font-bold">
@@ -122,20 +157,25 @@ const Edit_profile = () => {
               </div>
             </>
           )}
-          <div className="flex items-center space-x-2 justify-center">
-            <h5>Link: </h5>
-            <textarea
-              className="my-6 appearance-none border-b-2 bg-gray-800 border-violet-500 w-1/2 py-2 px-3 text-gray-300 outline-none"
-              type="url"
-              rows="5"
-              value={pic}
-              name="url"
+          <form onSubmit={handleUrl}>
+            <div className="flex items-center space-x-2 justify-center">
+              <h5>Link: </h5>
+              <textarea
+                className="my-6 appearance-none border-b-2 bg-gray-800 border-violet-500 w-1/2 py-2 px-3 text-gray-300 outline-none"
+                type="url"
+                rows="5"
+                value={pic}
+                name="url"
+                onChange={(e) => setPic(e.target.value)}
+              />
+              <br />
+            </div>
+            <input
+              className="mt-6 py-2 px-3 rounded-lg bg-cyan-500 cursor-pointer"
+              type="submit"
+              value="Save Image"
             />
-            <br />
-          </div>
-          <button className="mt-6 py-2 px-3 rounded-lg bg-cyan-500">
-            Save Image
-          </button>
+          </form>
         </div>
 
         {/*  */}
@@ -167,6 +207,7 @@ const Edit_profile = () => {
                       value={userN}
                       name="username"
                       onChange={(e) => setUserN(e.target.value)}
+                      required
                     />
                   </div>
                   <div>
@@ -194,6 +235,7 @@ const Edit_profile = () => {
                     value={email}
                     name="email"
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
                 </div>
               </>

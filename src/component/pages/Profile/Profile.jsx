@@ -113,7 +113,7 @@ const Profile = () => {
               </div>
               <div className="text-center mt-3">
                 <Link
-                  to="/editProfile"
+                  to={`/profile/${users1?.id}/edit`}
                   className="py-2 px-3 rounded-lg bg-cyan-500"
                 >
                   Edit Profile

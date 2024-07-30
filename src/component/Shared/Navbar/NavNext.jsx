@@ -97,7 +97,7 @@ const NavNext = () => {
                     </Link>
                   </li>
                   <li className="mx-4 my-6 md:my-0">
-                    <Link to="/profile">
+                    <Link to={`/profile/${localStorage.getItem("userId")}`}>
                       <div className="flex items-center">
                         <RxAvatar className="text-3xl mr-3" />
                         <div>

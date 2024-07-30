@@ -1,4 +1,32 @@
+import axios from "axios";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 const Edit_profile = () => {
+  const { id } = useParams();
+  //   const user_id = localStorage.getItem("userId");
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      try {
+        const res = await axios.get(
+          `https://work-notes-server.onrender.com/todo/users/${id}`,
+          {
+            headers: {
+              Authorization: `token ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log(`token ${localStorage.getItem("token")}`);
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    };
+    getUserInfo();
+  }, [id]);
+
   return (
     <div className="text-gray-200 h-screen bg-gray-800">
       <h1 className="text-center text-3xl py-6 md:py-12 font-bold">

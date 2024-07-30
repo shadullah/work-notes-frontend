@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
         element: <Signup></Signup>,
       },
       {
-        path: "profile",
+        path: "profile/:id",
         element: (
           <PrivateRoute>
             <Profile></Profile>
@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "editProfile",
+        path: "profile/:id/edit",
         element: (
           <PrivateRoute>
             <Edit_profile></Edit_profile>

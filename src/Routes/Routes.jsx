@@ -8,6 +8,7 @@ import Profile from "../component/pages/Profile/Profile";
 import Add_task from "../component/Tasks/Add_task";
 import Update_task from "../component/Tasks/Update_task";
 import PrivateRoute from "./PrivateRoute";
+import Edit_profile from "../component/pages/Profile/Edit_profile";
 
 export const router = createBrowserRouter([
   {
@@ -32,7 +33,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "editProfile",
+        element: (
+          <PrivateRoute>
+            <Edit_profile></Edit_profile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/:id",

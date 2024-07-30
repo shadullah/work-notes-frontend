@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useTasks from "../../../hooks/useTasks";
 import useUsers from "../../../hooks/useUsers";
 import CountUp from "react-countup";
-import { Audio } from "react-loader-spinner";
+import { Audio, TailSpin } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 import axios from "axios";
 // import { BsTextCenter } from "react-icons/bs";
@@ -11,6 +11,7 @@ const Profile = () => {
   const [users1, loading] = useUsers();
   const [tasks] = useTasks();
   const [pic, setPic] = useState(null);
+  const [load, setloading] = useState(true);
 
   const completedtask = tasks.filter(
     (task) => task.completed && task.user.id == users1.id
@@ -41,6 +42,8 @@ const Profile = () => {
         }
       } catch (err) {
         console.log(err);
+      } finally {
+        setloading(false);
       }
     };
     getProfile();
@@ -64,11 +67,30 @@ const Profile = () => {
         ) : (
           <>
             <div className="bg-gray-700 w-full md:w-1/3 p-3 md:p-6 rounded-lg">
-              <img
-                src={pic || ""}
-                className="h-44 md:h-64 w-full border-2 rounded-lg"
-                alt="#"
-              />
+              <div>
+                {load ? (
+                  <>
+                    <div className="flex justify-center items-center h-64">
+                      <TailSpin
+                        visible={true}
+                        height="80"
+                        width="80"
+                        color="gray"
+                        ariaLabel="tail-spin-loading"
+                        radius="1"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <img
+                    src={pic || ""}
+                    className="h-44 md:h-64 w-full border-2 rounded-lg"
+                    alt="#"
+                  />
+                )}
+              </div>
               <div className="mt-3 md:mt-6">
                 <div className="block md:flex items-center justify-between">
                   <h1 className="text-xl md:text-3xl">My Profile</h1>
@@ -90,9 +112,12 @@ const Profile = () => {
                 <p className="underline">Email: {users1.email}</p>
               </div>
               <div className="text-center mt-3">
-                <button className="py-2 px-3 rounded-lg bg-cyan-500">
+                <Link
+                  to="/editProfile"
+                  className="py-2 px-3 rounded-lg bg-cyan-500"
+                >
                   Edit Profile
-                </button>
+                </Link>
               </div>
             </div>
 

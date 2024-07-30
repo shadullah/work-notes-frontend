@@ -91,11 +91,12 @@ const Add_task = () => {
               />
             </div>
             <div className="w-full px-3 mb-6">
-              <input
+              <textarea
                 className="appearance-none border-b-2 border-violet-500 w-full py-2 px-3 text-gray-700"
                 name="description"
                 type="text"
                 placeholder="Write notes here..."
+                rows="4"
                 required
               />
             </div>

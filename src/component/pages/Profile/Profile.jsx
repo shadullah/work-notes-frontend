@@ -30,9 +30,11 @@ const Profile = () => {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const res = await axios.get(
-          `https://work-notes-server.onrender.com/todo/profiles/`
-        );
+        const res = await axios.get(`http://127.0.0.1:8000/todo/profiles/`, {
+          headers: {
+            Authorization: `token ${localStorage.getItem("token")}`,
+          },
+        });
         const profiles = res.data;
         const userProfile = profiles.find(
           (profile) => profile.user === users1.id
@@ -86,7 +88,7 @@ const Profile = () => {
                 ) : (
                   <img
                     src={pic || ""}
-                    className="h-44 md:h-64 w-full border-2 rounded-lg"
+                    className="h-44 md:h-64 w-64 mx-auto border-2 rounded-full"
                     alt="#"
                   />
                 )}

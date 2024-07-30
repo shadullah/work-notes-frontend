@@ -30,11 +30,14 @@ const Profile = () => {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const res = await axios.get(`http://127.0.0.1:8000/todo/profiles/`, {
-          headers: {
-            Authorization: `token ${localStorage.getItem("token")}`,
-          },
-        });
+        const res = await axios.get(
+          `https://work-notes-server.onrender.com/todo/profiles/`,
+          {
+            headers: {
+              Authorization: `token ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         const profiles = res.data;
         const userProfile = profiles.find(
           (profile) => profile.user === users1.id

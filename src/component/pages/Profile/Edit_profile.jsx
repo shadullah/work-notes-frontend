@@ -7,12 +7,19 @@ import { useNavigate } from "react-router-dom";
 
 const Edit_profile = () => {
   const [userN, setUserN] = useState("");
+  const [initialUsername, setInitialUserN] = useState("");
   const [, setFirst] = useState("");
+  const [, setInitialFirst] = useState("");
   const [, setLast] = useState("");
+  const [, setInitialLast] = useState("");
   const [full, setFull] = useState("");
+  const [initialFull, setInitialFull] = useState("");
   const [email, setEmail] = useState("");
+  const [initialEmail, setInitialEmail] = useState("");
   const [users1, loading] = useUsers();
   const [pic, setPic] = useState(null);
+  const [initialPic, setInitialPic] = useState(null);
+  const [isBtndisable, setIsbtnDisable] = useState(true);
   const [load, setloading] = useState(true);
   const [profileId, setProfileId] = useState(null);
 
@@ -25,10 +32,15 @@ const Edit_profile = () => {
   useEffect(() => {
     if (users1 && users1.username) {
       setUserN(users1.username);
+      setInitialUserN(users1.username);
       setFirst(users1.first_name);
+      setInitialFirst(users1.first_name);
       setLast(users1.last_name);
+      setInitialLast(users1.last_name);
       setFull(`${users1.first_name} ${users1.last_name}`);
+      setInitialFull(`${users1.first_name} ${users1.last_name}`);
       setEmail(users1.email);
+      setInitialEmail(users1.email);
     }
   }, [users1]);
 
@@ -48,6 +60,7 @@ const Edit_profile = () => {
           if (userProfile) {
             setPic(userProfile.img);
             setProfileId(userProfile.id);
+            setInitialPic(userProfile.img);
           }
         } catch (err) {
           console.log(err);
@@ -98,13 +111,10 @@ const Edit_profile = () => {
     e.preventDefault();
     let link = e.target.url.value;
 
-    // if (!link.endsWith("/")) {
-    //   link += "/";
-    // }
-
     try {
       await axios.put(
-        `https://work-notes-server.onrender.com/todo/profiles/${profileId}/`,
+        // `https://work-notes-server.onrender.com/todo/profiles/${profileId}/`,
+        `http://127.0.0.1:8000/todo/profiles/${profileId}/`,
         {
           img: link,
           user: users1.id,
@@ -124,11 +134,22 @@ const Edit_profile = () => {
     }
   };
 
+  useEffect(() => {
+    setIsbtnDisable(initialPic == pic);
+  }, [initialPic, pic]);
+
+  const handleURLInputChange = (e) => {
+    setPic(e.target.value);
+  };
+  //
+
   return (
     <div className="text-gray-200 h-screen bg-gray-800">
       <h1 className="text-center text-3xl py-6 md:py-12 font-bold">
         Edit Profile
       </h1>
+
+      {/*  */}
       <div className="block md:flex justify-between items-center p-3 md:p-12">
         <div className="w-full md:w-1/2 text-center m-2 md:m-6">
           {load ? (
@@ -166,14 +187,19 @@ const Edit_profile = () => {
                 rows="5"
                 value={pic}
                 name="url"
-                onChange={(e) => setPic(e.target.value)}
+                onChange={handleURLInputChange}
               />
               <br />
             </div>
             <input
-              className="mt-6 py-2 px-3 rounded-lg bg-cyan-500 cursor-pointer"
+              className={`mt-6 py-2 px-3 rounded-lg   ${
+                isBtndisable
+                  ? "cursor-not-allowed bg-gray-500"
+                  : "bg-cyan-500 cursor-pointer"
+              }`}
               type="submit"
               value="Save Image"
+              disabled={isBtndisable}
             />
           </form>
         </div>

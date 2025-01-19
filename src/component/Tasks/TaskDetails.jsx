@@ -16,7 +16,7 @@ const TaskDetails = () => {
   const user_id = localStorage.getItem("userId");
   const urls = [
     `https://work-notes-server.onrender.com/todo/list/${id}/`,
-    `http://127.0.0.1:8000/todo/list/${id}/`,
+    // `http://127.0.0.1:8000/todo/list/${id}/`,
   ];
 
   const handleDelete = async () => {

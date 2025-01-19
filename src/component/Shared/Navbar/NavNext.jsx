@@ -15,7 +15,7 @@ const NavNext = () => {
   //   const [txtclr, setTxtclr] = useState("white");
   const urls = [
     "https://work-notes-server.onrender.com/todo/logout/",
-    "http://localhost:8000/todo/logout/",
+    // "http://localhost:8000/todo/logout/",
   ];
   const handleNav = () => {
     setNav(!nav);

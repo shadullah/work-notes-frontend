@@ -19,11 +19,14 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/todo/logout/", {
-        headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      });
+      const res = await axios.get(
+        "https://work-notes-server.onrender.com/todo/logout/",
+        {
+          headers: {
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       if (res.status == 200) {
         console.log("logout successfull");
         localStorage.removeItem("token");

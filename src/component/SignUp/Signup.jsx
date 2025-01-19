@@ -12,7 +12,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const urls = [
     "https://work-notes-server.onrender.com/todo/register/",
-    "http://localhost:8000/todo/register/",
+    // "http://localhost:8000/todo/register/",
   ];
 
   const {

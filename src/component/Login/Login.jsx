@@ -8,7 +8,7 @@ const Login = () => {
   const location = useLocation();
   const urls = [
     "https://work-notes-server.onrender.com/todo/login/",
-    "http://localhost:8000/todo/login/",
+    // "http://localhost:8000/todo/login/",
   ];
 
   const from = location.state?.form?.pathname || "/";

@@ -10,7 +10,7 @@ const Add_task = () => {
   const navigate = useNavigate();
   const urls = [
     "https://work-notes-server.onrender.com/todo/list/",
-    "http://localhost:8000/todo/list/",
+    // "http://localhost:8000/todo/list/",
   ];
 
   useEffect(() => {
